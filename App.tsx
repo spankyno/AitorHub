@@ -1,10 +1,42 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Twitter } from 'lucide-react';
 import { LINKS, SOCIAL_LINKS } from './constants';
 import { LinkCard } from './components/LinkCard';
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  // ➡️ NUEVA IMPLEMENTACIÓN: Llamada a la API para registrar la visita ⬅️
+  useEffect(() => {
+    // Definimos la función asíncrona para hacer el fetch
+    const logVisit = async () => {
+      try {
+        // Llamada a la serverless function de Vercel
+        const response = await fetch('/api/log-visit', {
+          method: 'POST', // Usamos POST para registrar un nuevo recurso
+        });
+
+        if (response.ok) {
+          console.log('✅ Visita registrada con éxito.');
+          // Puedes descomentar si quieres ver la respuesta de la API
+          // const data = await response.json(); 
+          // console.log('Datos de respuesta:', data);
+        } else {
+          console.error('❌ Error al registrar la visita:', response.status, response.statusText);
+        }
+      } catch (error) {
+        // Captura errores de red (ej. si la API no está accesible)
+        console.error('❌ Error de red al intentar registrar la visita:', error);
+      }
+    };
+
+    // Ejecutamos la función de registro
+    logVisit();
+
+    // El array de dependencias vacío `[]` asegura que esto se ejecute
+    // SÓLO una vez, justo después de que el componente se monte.
+  }, []);
+  // ⬅️ FIN DE LA NUEVA IMPLEMENTACIÓN ⬅️
 
   // Filter links based on search input
   const filteredLinks = useMemo(() => {
