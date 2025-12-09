@@ -12,8 +12,8 @@ const App: React.FC = () => {
     const logVisit = async () => {
       try {
         // Llamada a la serverless function de Vercel
-        const response = await fetch('/api/log-visit', {
-          method: 'POST', // Usamos POST para registrar un nuevo recurso
+        const response = await fetch('/api/registrar-entrada', {
+          method: 'POST',
         });
 
         if (response.ok) {
