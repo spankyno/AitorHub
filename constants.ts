@@ -18,7 +18,8 @@ import {
   LocateFixed,
   Clapperboard,
   SmilePlus,
-  Eraser
+  Eraser,
+  SquareScissors
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -193,6 +194,14 @@ export const LINKS: LinkItem[] = [
     description: "Explora, visualiza, copia diferentes emojis",
     category: 'Emoji',
     icon: SmilePlus
+  },
+  {
+    id: 'videotrim',
+    title: "Video Trim",
+    url: "https://video-trim-zeta.vercel.app/",
+    description: "Procesamiento de recorte de vídeo con inclusión de audio",
+    category: 'Tools',
+    icon: SquareScissors
   },
 {
     id: 'metadata',
