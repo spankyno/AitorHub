@@ -19,7 +19,8 @@ import {
   Clapperboard,
   SmilePlus,
   Eraser,
-  SquareScissors
+  SquareScissors,
+  QrCode
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -202,6 +203,14 @@ export const LINKS: LinkItem[] = [
     description: "Procesamiento de recorte de vídeo con inclusión de audio",
     category: 'Tools',
     icon: SquareScissors
+  },
+  {
+    id: 'qrcode',
+    title: "QR Generaitor",
+    url: "https://qrgeneraitor.netlify.app",
+    description: "Genera códigos QR",
+    category: 'Connectivity',
+    icon: QrCode
   },
 {
     id: 'metadata',
