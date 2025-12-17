@@ -212,6 +212,14 @@ export const LINKS: LinkItem[] = [
     category: 'Connectivity',
     icon: QrCode
   },
+  {
+    id: 'test',
+    title: "Examiaitor",
+    url: "https://examinaitor.vercel.app/",
+    description: "Genera exámenes tipo test, a partir de un tema o un pdf",
+    category: 'utility',
+    icon: FileText
+  },  
 {
     id: 'metadata',
     title: "Metadata Remover",
