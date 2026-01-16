@@ -45,6 +45,14 @@ export const LINKS: LinkItem[] = [
     icon: FileSpreadsheet
   },
   {
+    id: 'compare',
+    title: "Excel Lists Compare",
+    url: "https://excel-lists-compare.vercel.app",
+    description: "Herramienta para fusionar múltiples listas de Excel en un único archivo, usando columna maestra",
+    category: 'tool',
+    icon: FileSpreadsheet
+  }, 
+  {
     id: 'excelsheet',
     title: "Excel's Sheets Password Remover",
     url: "https://excel-sheet-password-remover.vercel.app/",
