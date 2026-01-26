@@ -20,7 +20,8 @@ import {
   SmilePlus,
   Eraser,
   SquareScissors,
-  QrCode
+  QrCode,
+  Images
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -235,6 +236,14 @@ export const LINKS: LinkItem[] = [
     description: "Elimina metadatos y EXIF de archivos",
     category: 'files',
     icon: Eraser
+},
+{
+    id: 'metadeditor',
+    title: "Metadata Editaitor",
+    url: "https://metadataeditaitor.vercel.app/",
+    description: "Edición de metadatos y EXIF de imágenes",
+    category: 'Photography',
+    icon: Images
 }
 ];
 export const SOCIAL_LINKS = {
