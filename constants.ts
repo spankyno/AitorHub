@@ -62,6 +62,14 @@ export const LINKS: LinkItem[] = [
     icon: FileSpreadsheet
   },
   {
+    id: 'exceltext',
+    title: "Excel Text Generaitor",
+    url: "https://excel-text-generaitor.vercel.app/",
+    description: "Genera cadenas de texto iterativas y personalizadas",
+    category: 'tool',
+    icon: FileSpreadsheet
+  },
+  {
     id: 'folder',
     title: "MyFolder2Xlsx",
     url: "https://myfolder2xlsx.netlify.app",
