@@ -142,6 +142,14 @@ export const LINKS: LinkItem[] = [
     icon: ScanText
   },
   {
+    id: 'gal',
+    title: "GaleriAitor",
+    url: "https://galeriaitor.vercel.app/",
+    description: "Galería de imagenes para visualización de activos",
+    category: 'media',
+    icon: ImageIcon
+  },
+  {
     id: 'img',
     title: "Imaginaitor",
     url: "https://imaginaitor.vercel.app/",
