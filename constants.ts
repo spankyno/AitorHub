@@ -112,7 +112,7 @@ export const LINKS: LinkItem[] = [
   {
     id: 'ip',
     title: "Buscador de IP",
-    url: "https://buscaip.netlify.app/",
+    url: "https://donde-ip.vercel.app/",
     description: "Geolocalización y detalles sobre direcciones IP.",
     category: 'utility',
     icon: Globe
