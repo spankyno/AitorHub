@@ -110,6 +110,14 @@ export const LINKS: LinkItem[] = [
     icon: FileText
   },
   {
+    id: 'bloc',
+    title: "Bloc de notas web",
+    url: "https://blocnotas.vercel.app/",
+    description: "Bloc de notas online.",
+    category: 'utility',
+    icon: FileText
+  },
+  {
     id: 'ip',
     title: "Buscador de IP",
     url: "https://donde-ip.vercel.app/",
