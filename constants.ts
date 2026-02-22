@@ -190,12 +190,12 @@ export const LINKS: LinkItem[] = [
     icon: MapPinCheckInside
   },
  {
-    id: 'galeria',
-    title: "Galería de fotos",
-    url: "https://aitorfotos.infinityfreeapp.com/",
-    description: "Galería de fotos, con permisos por usuarios y grupos",
-    category: 'files',
-    icon: BookImage
+    id: 'pdf2xls',
+    title: "Pdf a Excel",
+    url: "https://pdfaexcel.vercel.app/",
+    description: "Convierte tablas de documentos Pdf a Excel",
+    category: 'utility',
+    icon: FileText
   },
  {
     id: 'sysevent',
