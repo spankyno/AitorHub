@@ -118,6 +118,14 @@ export const LINKS: LinkItem[] = [
     icon: FileText
   },
   {
+    id: 'csvjson',
+    title: "CSV JSON Converter",
+    url: "https://csv-json-convert.vercel.app/",
+    description: "Conversor CSV JSON",
+    category: 'utility',
+    icon: FileText
+  },
+  {
     id: 'ip',
     title: "Buscador de IP",
     url: "https://donde-ip.vercel.app/",
