@@ -284,7 +284,15 @@ export const LINKS: LinkItem[] = [
     description: "Edición de metadatos y EXIF de imágenes",
     category: 'Photography',
     icon: Images
-}
+},
+{
+    id: 'municipios',
+    title: "Juego buscar municipios",
+    url: "https://busca-municipios.vercel.app/",
+    description: "Juego interactivo para ubicar municipios en un mapa",
+    category: 'game',
+    icon: MapIcon
+  }
 ];
 export const SOCIAL_LINKS = {
   twitter: "https://x.com/Kalbo___"
