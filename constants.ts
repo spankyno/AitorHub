@@ -197,6 +197,14 @@ export const LINKS: LinkItem[] = [
     category: 'navigation',
     icon: MapPinCheckInside
   },
+  {
+    id: 'georef3',
+    title: "Georef Fotos",
+    url: "https://georef-fotos.vercel.app/",
+    description: "Inserta información geográfica en fotos",
+    category: 'navigation',
+    icon: MapPinCheckInside
+  },
  {
     id: 'pdf2xls',
     title: "Pdf a Excel",
