@@ -305,7 +305,7 @@ export const LINKS: LinkItem[] = [
 {
     id: 'css',
     title: "CSS Parser",
-    url: "https://busca-municipios.vercel.app/",
+    url: "https://css-visualizaitor.vercel.app/",
     description: "Muestra estilos CSS y crea HTML con esos estilos",
     category: 'Development',
     icon: SquareCode
