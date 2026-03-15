@@ -22,7 +22,7 @@ import {
   SquareScissors,
   QrCode,
   Images,
-  Development  
+  SquareCode 
 } from 'lucide-react';
 import { LinkItem } from './types';
 
