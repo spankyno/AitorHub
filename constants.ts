@@ -21,7 +21,8 @@ import {
   Eraser,
   SquareScissors,
   QrCode,
-  Images
+  Images,
+  Development  
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -300,7 +301,15 @@ export const LINKS: LinkItem[] = [
     description: "Juego interactivo para ubicar municipios en un mapa",
     category: 'game',
     icon: MapIcon
-  }
+  },  
+{
+    id: 'css',
+    title: "CSS Parser",
+    url: "https://busca-municipios.vercel.app/",
+    description: "Muestra estilos CSS y crea HTML con esos estilos",
+    category: 'Development',
+    icon: square-code
+  }  
 ];
 export const SOCIAL_LINKS = {
   twitter: "https://x.com/Kalbo___"
