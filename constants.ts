@@ -308,7 +308,7 @@ export const LINKS: LinkItem[] = [
     url: "https://busca-municipios.vercel.app/",
     description: "Muestra estilos CSS y crea HTML con esos estilos",
     category: 'Development',
-    icon: square-code
+    icon: SquareCode
   }  
 ];
 export const SOCIAL_LINKS = {
