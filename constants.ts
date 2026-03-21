@@ -112,9 +112,9 @@ export const LINKS: LinkItem[] = [
   },
   {
     id: 'bloc',
-    title: "Bloc de notas web",
-    url: "https://blocnotas.vercel.app/",
-    description: "Bloc de notas online.",
+    title: "MNW - Mis Notas Web",
+    url: "https://misnotasweb.vercel.app/",
+    description: "Bloc de notas online. También dispone de apk para Android",
     category: 'utility',
     icon: FileText
   },
