@@ -103,13 +103,21 @@ export const LINKS: LinkItem[] = [
     icon: Mic
   },
   {
-    id: 'pdf',
+    id: 'pdfscrap',
     title: "Extrae Información PDF",
     url: "https://pdfscrappingaitor.netlify.app/",
     description: "Analiza y extrae datos específicos de documentos PDF (PDF Scrapping).",
     category: 'utility',
     icon: FileText
   },
+  {
+    id: 'pdfedit',
+    title: "+ 60 Herramientas para PDF",
+    url: "https://pdfeditaitor.netlify.app/",
+    description: "Todo tipo de herramientas para archivos PDF",
+    category: 'utility',
+    icon: FileText
+  },   
   {
     id: 'bloc',
     title: "MNW - Mis Notas Web",
