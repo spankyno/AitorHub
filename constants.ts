@@ -71,13 +71,21 @@ export const LINKS: LinkItem[] = [
     icon: FileSpreadsheet
   },
   {
-    id: 'folder',
+    id: 'folderxlsx',
     title: "MyFolder2Xlsx",
     url: "https://myfolder2xlsx.netlify.app",
-    description: "Obtiene información del contenido de una carpeta",
+    description: "Obtiene información del contenido de una carpeta en formato Excel",
     category: 'tool',
     icon: FileSpreadsheet
   },  
+  {
+    id: 'folderinfo',
+    title: "Folder InformAitor",
+    url: "https://folderinformaitor.netlify.app/",
+    description: "Obtiene información del contenido de una carpeta de diferentes fuentes en difentes formatos",
+    category: 'tool',
+    icon: FileSpreadsheet
+  },     
   {
     id: 'gpx',
     title: "Visor GPX Simultáneo",
