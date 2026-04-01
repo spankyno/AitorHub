@@ -22,7 +22,8 @@ import {
   SquareScissors,
   QrCode,
   Images,
-  SquareCode 
+  SquareCode,
+  Video  
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -284,7 +285,7 @@ export const LINKS: LinkItem[] = [
     url: "https://grabador-web.vercel.app/",
     description: "Grabador de pantalla online",
     category: 'Tools',
-    icon: SquareScissors
+    icon: Video
   },
   {
     id: 'grabaweb2',
@@ -292,7 +293,7 @@ export const LINKS: LinkItem[] = [
     url: "https://grabador-web-v2.vercel.app/",
     description: "Grabador de pantalla online, con almacenamiento y procesado FFmpeg",
     category: 'Tools',
-    icon: SquareScissors
+    icon: Video
   },  
   {
     id: 'qrcode',
