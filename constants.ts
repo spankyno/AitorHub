@@ -279,6 +279,22 @@ export const LINKS: LinkItem[] = [
     icon: SquareScissors
   },
   {
+    id: 'grabaweb',
+    title: "Grabador web - Screen Recorder",
+    url: "https://grabador-web.vercel.app/",
+    description: "Grabador de pantalla online",
+    category: 'Tools',
+    icon: SquareScissors
+  },
+  {
+    id: 'grabaweb2',
+    title: "Grabador web - Screen Recorder (mejorado)",
+    url: "https://grabador-web-v2.vercel.app/",
+    description: "Grabador de pantalla online, con almacenamiento y procesado FFmpeg",
+    category: 'Tools',
+    icon: SquareScissors
+  },  
+  {
     id: 'qrcode',
     title: "QR Generaitor",
     url: "https://qrgeneraitor.netlify.app",
