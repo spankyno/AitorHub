@@ -342,7 +342,15 @@ export const LINKS: LinkItem[] = [
     description: "Muestra estilos CSS y crea HTML con esos estilos",
     category: 'Development',
     icon: SquareCode
-  }  
+  },
+{
+    id: 'scrap',
+    title: "Web Scraper",
+    url: "https://webscraper-pro.vercel.app//",
+    description: "Plataforma de Extracción, Monitorización y Visualización de Precios web",
+    category: 'utility',
+    icon: Radar
+  }
 ];
 export const SOCIAL_LINKS = {
   twitter: "https://x.com/Kalbo___"
