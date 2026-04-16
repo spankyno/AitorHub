@@ -346,7 +346,7 @@ export const LINKS: LinkItem[] = [
 {
     id: 'scrap',
     title: "Web Scraper",
-    url: "https://webscraper-pro.vercel.app//",
+    url: "https://web-scraper-v3.vercel.app/",
     description: "Plataforma de Extracción, Monitorización y Visualización de Precios web",
     category: 'utility',
     icon: Radar
