@@ -103,6 +103,14 @@ export const LINKS: LinkItem[] = [
     category: 'tool',
     icon: MapPin
   },
+ {
+    id: 'fotomap',
+    title: "Visor de fotos georeferenciadas",
+    url: "https://fotomap-cfp.pages.dev/",
+    description: "Geolocaliza tus fotos en mapas interactivos",
+    category: 'tool',
+    icon: MapPin
+  },   
   {
     id: 'audio-rec',
     title: "Grabadora Audio PC",
