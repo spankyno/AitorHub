@@ -62,7 +62,7 @@ const App: React.FC = () => {
           
           {/* Linked Profile Image */}
           <a 
-            href="https://aitorblog.infinityfreeapp.com/" 
+            href="https://aitorsanchez.pages.dev/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="relative mb-8 group block cursor-pointer"
