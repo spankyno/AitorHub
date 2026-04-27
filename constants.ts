@@ -33,7 +33,7 @@ export const LINKS: LinkItem[] = [
   {
     id: 'home',
     title: "HOME (Aitor's blog)",
-    url: "https://aitorblog.infinityfreeapp.com/",
+    url: "https://aitorsanchez.pages.dev/",
     description: "La página principal de mi blog personal con artículos y novedades.",
     category: 'blog',
     icon: Zap,
