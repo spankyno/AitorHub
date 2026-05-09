@@ -23,7 +23,8 @@ import {
   QrCode,
   Images,
   SquareCode,
-  Video  
+  Video,
+  FolderPen
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -358,7 +359,15 @@ export const LINKS: LinkItem[] = [
     description: "Plataforma de Extracción, Monitorización y Visualización de Precios web",
     category: 'utility',
     icon: Radar
-  }
+  },
+  {
+    id: 'renomb',
+    title: "RenombrAitor",
+    url: "https://renombraitor.vercel.app/",
+    description: "Herramienta para el renombrado masivo de archivos",
+    category: 'files', 
+    icon: FolderPen
+  } 
 ];
 export const SOCIAL_LINKS = {
   twitter: "https://x.com/Kalbo___"
