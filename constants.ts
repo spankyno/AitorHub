@@ -23,7 +23,8 @@ import {
   QrCode,
   Images,
   SquareCode,
-  Video  
+  Video,
+  FolderPen
 } from 'lucide-react';
 import { LinkItem } from './types';
 
