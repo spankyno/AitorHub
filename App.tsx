@@ -3,11 +3,18 @@ import { Search, Twitter } from 'lucide-react';
 import { LINKS, SOCIAL_LINKS } from './constants';
 import { LinkCard } from './components/LinkCard';
 
+// Module-level flag: lives outside the component so it survives
+// React StrictMode's intentional unmount/remount cycle in development.
+// It resets only on a true full page reload.
+let visitLogged = false;
+
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Register visit once on mount
   useEffect(() => {
+    if (visitLogged) return;
+    visitLogged = true;
+
     const logVisit = async () => {
       try {
         const response = await fetch('/api/registrar-entrada', {
