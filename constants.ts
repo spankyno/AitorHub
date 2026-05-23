@@ -412,6 +412,15 @@ export const LINKS: LinkItem[] = [
     icon: FolderPen,
     isExternal: true,
   },
+{
+    id: 'miraa',
+    title: 'miraA',
+    url: 'https://miraa.pages.dev/',
+    description: 'Compartir pantalla/webcam online',
+    category: 'tool',
+    icon: Video,
+    isExternal: true,
+  }
 ];
 
 export const SOCIAL_LINKS = {
