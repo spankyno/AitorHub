@@ -115,14 +115,14 @@ export default async function handler(req, res) {
   }
 
   // ── app_name extraction ──────────────────────────────────────────────────
-  let appName = null;
+  let appName = '/home';
   try {
     const raw = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
     const parsed = JSON.parse(raw);
-    if (typeof parsed.app_name === 'string') {
-      appName = parsed.app_name.trim().slice(0, 150) || null;
+    if (typeof parsed.app_name === 'string' && parsed.app_name.trim()) {
+      appName = parsed.app_name.trim().slice(0, 150);
     }
-  } catch { /* body vacío o malformado — appName queda null → DEFAULT '/home' */ }
+  } catch { /* body vacío o malformado — appName queda '/home' */ }
 
   // ── Database insert ──────────────────────────────────────────────────────
   try {
