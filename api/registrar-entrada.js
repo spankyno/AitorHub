@@ -114,11 +114,21 @@ export default async function handler(req, res) {
     }
   }
 
+  // ── app_name extraction ──────────────────────────────────────────────────
+  let appName = null;
+  try {
+    const raw = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
+    const parsed = JSON.parse(raw);
+    if (typeof parsed.app_name === 'string') {
+      appName = parsed.app_name.trim().slice(0, 150) || null;
+    }
+  } catch { /* body vacío o malformado — appName queda null → DEFAULT '/home' */ }
+
   // ── Database insert ──────────────────────────────────────────────────────
   try {
     await sql`
-      INSERT INTO visits (ip_address, country, city)
-      VALUES (${ipAddress}, ${country}, ${city})
+      INSERT INTO visits (ip_address, country, city, app_name)
+      VALUES (${ipAddress}, ${country}, ${city}, ${appName})
     `;
 
     return res.status(200).json({
