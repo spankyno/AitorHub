@@ -9,11 +9,19 @@ interface LinkCardProps {
 export const LinkCard: React.FC<LinkCardProps> = ({ item }) => {
   const Icon = item.icon;
 
+  const handleClick = () => {
+    navigator.sendBeacon(
+      '/api/registrar-entrada',
+      JSON.stringify({ app_name: item.title }),
+    );
+  };
+
   return (
     <a 
       href={item.url} 
       target="_blank" 
       rel="noopener noreferrer"
+      onClick={handleClick}
       className="group relative flex flex-col p-6 bg-white rounded-2xl shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-brand-200 overflow-hidden"
     >
       <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
