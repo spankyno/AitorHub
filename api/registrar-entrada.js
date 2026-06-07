@@ -116,19 +116,23 @@ export default async function handler(req, res) {
 
   // ── app_name extraction ──────────────────────────────────────────────────
   let appName = '/home';
+  let referrer = 'Directo';
   try {
     const raw = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
     const parsed = JSON.parse(raw);
     if (typeof parsed.app_name === 'string' && parsed.app_name.trim()) {
       appName = parsed.app_name.trim().slice(0, 150);
     }
-  } catch { /* body vacío o malformado — appName queda '/home' */ }
+    if (typeof parsed.referrer === 'string' && parsed.referrer.trim()) {
+      referrer = parsed.referrer.trim().slice(0, 150);
+    }
+  } catch { /* body vacío o malformado — valores por defecto */ }
 
   // ── Database insert ──────────────────────────────────────────────────────
   try {
     await sql`
-      INSERT INTO visits (ip_address, country, city, app_name)
-      VALUES (${ipAddress}, ${country}, ${city}, ${appName})
+      INSERT INTO visits (ip_address, country, city, app_name, referrer)
+      VALUES (${ipAddress}, ${country}, ${city}, ${appName}, ${referrer})
     `;
 
     return res.status(200).json({
