@@ -17,13 +17,18 @@ const App: React.FC = () => {
 
     const logVisit = async () => {
       try {
-        const rawReferrer = document.referrer;
+        // 1. Parámetro ?ref explícito (máxima prioridad)
+        const refParam = new URLSearchParams(window.location.search).get('ref');
+
+        // 2. Fallback a document.referrer
         let referrer = 'Directo';
-        if (rawReferrer) {
+        if (refParam) {
+          referrer = refParam.trim().slice(0, 150);
+        } else if (document.referrer) {
           try {
-            referrer = new URL(rawReferrer).hostname.replace(/^www\./, '');
+            referrer = new URL(document.referrer).hostname.replace(/^www\./, '');
           } catch {
-            referrer = rawReferrer.slice(0, 150);
+            referrer = document.referrer.slice(0, 150);
           }
         }
 
