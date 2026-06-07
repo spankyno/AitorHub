@@ -17,9 +17,20 @@ const App: React.FC = () => {
 
     const logVisit = async () => {
       try {
+        const rawReferrer = document.referrer;
+        let referrer = 'Directo';
+        if (rawReferrer) {
+          try {
+            referrer = new URL(rawReferrer).hostname.replace(/^www\./, '');
+          } catch {
+            referrer = rawReferrer.slice(0, 150);
+          }
+        }
+
         const response = await fetch('/api/registrar-entrada', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ referrer }),
         });
 
         if (!response.ok) {
