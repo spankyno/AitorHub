@@ -24,6 +24,7 @@ import {
   SquareCode,
   Video,
   FolderPen,
+  HardDriveUpload,
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -429,9 +430,17 @@ export const LINKS: LinkItem[] = [
     category: 'utility',
     icon: FileText,
     isExternal: true,
-  }
+  },
+  {
+    id: 'ipfs_drive',
+    title: 'mi_IPFS_Drive',
+    url: 'https://mi-ipfs-drive.vercel.app/',
+    description: 'Almacenamiento distribuido IPFS para tus archivos.',
+    category: 'files',
+    icon: HardDriveUpload,
+    isExternal: true,
+  },
 ];
-
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
 };
