@@ -12,6 +12,7 @@ export type LinkCategory =
   | 'files'
   | 'game'
   | 'development'
+  | 'security'
   | 'photography';
 
 export interface LinkItem {
