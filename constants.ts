@@ -62,7 +62,7 @@ export const LINKS: LinkItem[] = [
   },
   {
     id: 'passgen',
-    title: "Excel's Sheets Password Remover",
+    title: "Password GenerAitor",
     url: 'https://password-generaitor.pages.dev/',
     description: 'Generador de contraseñas premium, 100% local, sin servidores, sin registro y enfocado en privacidad.',
     category: 'security',
