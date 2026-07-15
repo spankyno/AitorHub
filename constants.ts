@@ -25,6 +25,7 @@ import {
   Video,
   FolderPen,
   HardDriveUpload,
+  KeyRound,
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -57,6 +58,15 @@ export const LINKS: LinkItem[] = [
       'Herramienta para fusionar múltiples listas de Excel en un único archivo, usando columna maestra.',
     category: 'tool',
     icon: FileSpreadsheet,
+    isExternal: true,
+  },
+  {
+    id: 'passgen',
+    title: "Excel's Sheets Password Remover",
+    url: 'https://password-generaitor.pages.dev/',
+    description: 'Generador de contraseñas premium, 100% local, sin servidores, sin registro y enfocado en privacidad.',
+    category: 'security',
+    icon: KeyRound,
     isExternal: true,
   },
   {
