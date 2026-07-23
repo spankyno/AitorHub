@@ -290,21 +290,12 @@ export const LINKS: LinkItem[] = [
   {
     id: 'gpxviewer',
     title: 'Visor de rutas de archivos .gpx',
-    url: 'https://visorgpx.infinityfreeapp.com/',
+    url: 'https://visor-gpx.vercel.app/',
     description: 'Visualiza rutas de archivos .gpx.',
     category: 'navigation',
     icon: Locate,
     isExternal: true,
-  },
-  {
-    id: 'gpxhistorial',
-    title: 'Visor de archivos .gpx almacenados en historial',
-    url: 'https://gpxhistory.netlify.app/',
-    description: 'Visualiza archivos .gpx almacenados en historial.',
-    category: 'navigation',
-    icon: LocateFixed,
-    isExternal: true,
-  },
+  }, 
   {
     id: 'memories',
     title: 'Memories maker',
