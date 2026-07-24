@@ -61,6 +61,16 @@ export const LINKS: LinkItem[] = [
     isExternal: true,
   },
   {
+    id: 'formatoexcel',
+    title: 'Formatear Excel',
+    url: 'https://formatear-excel.kbo1.workers.dev',
+    description:
+      'Herramienta online para formatear libros de Excel y CSV con una presentación profesional',
+    category: 'tool',
+    icon: FileSpreadsheet,
+    isExternal: true,
+  },
+  {
     id: 'passgen',
     title: "Password GenerAitor",
     url: 'https://password-generaitor.pages.dev/',
