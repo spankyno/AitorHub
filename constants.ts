@@ -105,16 +105,7 @@ export const LINKS: LinkItem[] = [
     category: 'tool',
     icon: FileSpreadsheet,
     isExternal: true,
-  },
-  {
-    id: 'gpx',
-    title: 'Visor GPX Simultáneo',
-    url: 'https://visorvariosgpx.netlify.app/',
-    description: 'Visualiza múltiples rutas GPX al mismo tiempo en un mapa interactivo.',
-    category: 'tool',
-    icon: MapIcon,
-    isExternal: true,
-  },
+  },  
   {
     id: 'pk',
     title: 'Visor PK Carreteras',
@@ -289,7 +280,7 @@ export const LINKS: LinkItem[] = [
   },
   {
     id: 'gpxviewer',
-    title: 'Visor de rutas de archivos .gpx',
+    title: 'Visor de archivos .gpx',
     url: 'https://visor-gpx.vercel.app/',
     description: 'Visualiza rutas de archivos .gpx.',
     category: 'navigation',
