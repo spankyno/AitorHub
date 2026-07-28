@@ -71,6 +71,16 @@ export const LINKS: LinkItem[] = [
     isExternal: true,
   },
   {
+    id: 'processexcel',
+    title: 'Excel Lists Process',
+    url: 'https://excel-lists-process.pages.dev',
+    description:
+      'Herramienta para consolidación con suma y comparación en paralelo de listas de Excel',
+    category: 'tool',
+    icon: FileSpreadsheet,
+    isExternal: true,
+  },
+  {
     id: 'passgen',
     title: "Password GenerAitor",
     url: 'https://password-generaitor.pages.dev/',
