@@ -452,6 +452,15 @@ export const LINKS: LinkItem[] = [
     icon: HardDriveUpload,
     isExternal: true,
   },
+  {
+    id: 'plagio',
+    title: 'Detector de plagio e IA',
+    url: 'https://plagio-checker.vercel.app/',
+    description: 'Detector de plagio e IA',
+    category: 'utility',
+    icon: ScanText,
+    isExternal: true,
+  }
 ];
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
