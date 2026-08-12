@@ -2,7 +2,8 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3b82f6" />
     <!-- SEO Principal -->
     <title>Herramientas Web Gratuitas y Blog  | Aitor Sánchez</title>
     <meta name="author" content="Aitor Sánchez Gutiérrez" />
@@ -11,6 +12,8 @@
 
     <!-- Canonical: evita contenido duplicado y aclara a Google cuál es la URL de referencia de este sitio -->
     <link rel="canonical" href="https://aitorhub.vercel.app/" />
+    <!-- Robots: permite indexación completa e imagen grande en resultados -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
     <!-- Open Graph / Facebook / WhatsApp (Social Sharing) -->
     <meta property="og:type" content="website" />
@@ -18,7 +21,11 @@
     <meta property="og:title" content="Aitor's Hub - Herramientas y Blog" />
 	<meta property="og:site_name" content="Aitor's Hub" />
     <meta property="og:description" content="Colección de herramientas gratuitas y artículos desarrollados por Aitor Sánchez. Fusión de Excel, Mapas, Audio y más." />
-    <meta property="og:image" content="https://aitorhub.vercel.app/img/AitorCaricatura.jpg" />
+    <meta property="og:image" content="https://aitorhub.vercel.app/img/og-banner.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Aitor's Hub — Portal de herramientas web gratuitas" />
     <meta property="og:locale" content="es_ES" />
 
     <!-- Twitter -->
@@ -26,7 +33,7 @@
     <meta name="twitter:creator" content="@Kalbo___" />
     <meta name="twitter:title" content="Aitor's Hub" />
     <meta name="twitter:description" content="Herramientas web útiles y blog personal de Aitor Sánchez." />
-    <meta name="twitter:image" content="https://aitorhub.vercel.app/img/AitorCaricatura.jpg" />
+    <meta name="twitter:image" content="https://aitorhub.vercel.app/img/og-banner.jpg" />
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -48,7 +55,10 @@
 	"description": "Portal de herramientas web gratuitas (Excel Merger, Visor GPX, OCR) y otros artículos del blog.",
 	"potentialAction": {
     "@type": "SearchAction",
-    "target": "https://aitorhub.vercel.app/?q={search_term_string}",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://aitorhub.vercel.app/?q={search_term_string}"
+    },
     "query-input": "required name=search_term_string"
 		},
     "publisher": {

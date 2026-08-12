@@ -9,7 +9,9 @@ import { LinkCard } from './components/LinkCard';
 let visitLogged = false;
 
 const App: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>(
+    () => new URLSearchParams(window.location.search).get('q') ?? ''
+  );
 
   useEffect(() => {
     if (visitLogged) return;
@@ -50,6 +52,29 @@ const App: React.FC = () => {
     logVisit();
   }, []);
 
+  // Inyecta JSON-LD ItemList para que Google entienda la lista de herramientas
+  useEffect(() => {
+    const scriptId = 'itemlist-jsonld';
+    if (document.getElementById(scriptId)) return;
+    const itemList = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: "Herramientas de Aitor's Hub",
+      itemListElement: LINKS.map((link, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: link.title,
+        url: link.url,
+        description: link.description,
+      })),
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = scriptId;
+    script.textContent = JSON.stringify(itemList);
+    document.head.appendChild(script);
+  }, []);
+
   // Filter links based on search input
   const filteredLinks = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();
@@ -87,6 +112,8 @@ const App: React.FC = () => {
               <img
                 src="/img/AitorCaricatura.jpg"
                 alt="Aitor Caricatura - Ir al Blog"
+                loading="eager"
+                fetchPriority="high"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.src = 'https://picsum.photos/400/400';
@@ -100,7 +127,9 @@ const App: React.FC = () => {
             </div>
           </a>
 
-          <h1 className="sr-only">Aitor's Hub - Aitor Sánchez Gutiérrez</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-3 tracking-tight">
+            Aitor&#39;s Hub
+          </h1>
 
           <p className="max-w-2xl text-lg text-slate-600 mb-8 font-medium">
             Acceso directo a mis herramientas, utilidades y artículos del blog.
