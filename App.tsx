@@ -76,6 +76,23 @@ const App: React.FC = () => {
     document.head.appendChild(script);
   }, []);
 
+  const [limit, setLimit] = useState(12);
+
+  useEffect(() => {
+    if (searchTerm) {
+      setLimit(LINKS.length);
+      return;
+    }
+    const deferAllCards = () => {
+      setLimit(LINKS.length);
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => deferAllCards());
+    } else {
+      setTimeout(deferAllCards, 150);
+    }
+  }, [searchTerm]);
+
   // Filter links based on search input
   const filteredLinks = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();
@@ -86,6 +103,12 @@ const App: React.FC = () => {
         link.description.toLowerCase().includes(term),
     );
   }, [searchTerm]);
+
+  // Limit rendering to reduce initial CPU mount/hydration block (reduces TBT)
+  const displayedLinks = useMemo(() => {
+    if (searchTerm) return filteredLinks;
+    return filteredLinks.slice(0, limit);
+  }, [filteredLinks, limit, searchTerm]);
 
   return (
     <div className="min-h-screen pb-12">
@@ -173,9 +196,9 @@ const App: React.FC = () => {
 
         {/* Grid Layout */}
         <main>
-          {filteredLinks.length > 0 ? (
+          {displayedLinks.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredLinks.map((link) => (
+              {displayedLinks.map((link) => (
                 <LinkCard key={link.id} item={link} />
               ))}
             </div>
