@@ -110,19 +110,22 @@ const App: React.FC = () => {
           >
             <div className="absolute -inset-1 bg-gradient-to-r from-brand-400 to-purple-400 rounded-2xl opacity-70 blur transition duration-500 group-hover:opacity-100 rotate-3"></div>
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-white transform transition duration-500 group-hover:-rotate-2 group-hover:scale-[1.02]">
-              <img
-                src="/img/AitorCaricatura.jpg"
-                alt="Aitor Caricatura - Ir al Blog"
-                width="224"
-                height="224"
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = 'https://picsum.photos/400/400';
-                }}
-              />
+              <picture>
+                <source srcSet="/img/AitorCaricatura.webp" type="image/webp" />
+                <img
+                  src="/img/AitorCaricatura.jpg"
+                  alt="Aitor Caricatura - Ir al Blog"
+                  width="224"
+                  height="224"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://picsum.photos/400/400';
+                  }}
+                />
+              </picture>
             </div>
             <div className="absolute bottom-2 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
               <span className="inline-block bg-black/60 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm">

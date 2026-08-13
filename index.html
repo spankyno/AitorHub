@@ -41,12 +41,14 @@
 	<link rel="me" href="https://aitorsanchez.pages.dev/">
 
     <!-- Preload imagen hero para mejorar LCP -->
-    <link rel="preload" as="image" href="/img/AitorCaricatura.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/img/AitorCaricatura.webp" fetchpriority="high" type="image/webp" />
 
-    <!-- Google Fonts: preconnect + display=optional para no bloquear render -->
+    <!-- Google Fonts: carga NO bloqueante (media=print trick) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=optional" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+          media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" /></noscript>
 
     <!-- Datos Estructurados (JSON-LD) para Google -->
     <script type="application/ld+json">

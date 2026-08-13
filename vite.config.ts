@@ -20,10 +20,17 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        // Split vendor code for better caching
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'icons': ['lucide-react'],
+        // Split vendor code dynamically
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('scheduler')) {
+              return 'react-vendor';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
+            return 'vendor'; // everything else from node_modules
+          }
         },
       },
     },
