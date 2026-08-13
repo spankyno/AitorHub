@@ -82,27 +82,37 @@
 }		
 </script>
 
-<!-- Google Analytics: carga asíncrona diferida (no bloquea render) -->
+<!-- Google & Aitor's Analytics: carga diferida en periodos de inactividad (requestIdleCallback) -->
 <script>
   window.addEventListener('load', function() {
-    var s = document.createElement('script');
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-FXHH0B58V9';
-    s.async = true;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', 'G-FXHH0B58V9');
+    var deferScripts = function() {
+      // 1. Google Tag Manager
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-FXHH0B58V9';
+      s.async = true;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-FXHH0B58V9');
+
+      // 2. Aitor's Analytics
+      var t = document.createElement('script');
+      t.src = 'https://aitors-hub-dashboard.asanchezgu.workers.dev/tracker.js';
+      t.setAttribute('data-app', 'aitor-hub');
+      t.setAttribute('data-key', 'ak_e279ba09f6f740a2b0d605820a02b0a2');
+      t.async = true;
+      document.head.appendChild(t);
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(deferScripts);
+    } else {
+      setTimeout(deferScripts, 1);
+    }
   });
 </script>
-
-<!-- Aitor's Analytics — tracker de visitas HTML -->
-<script src="https://aitors-hub-dashboard.asanchezgu.workers.dev/tracker.js"
-        data-app="aitor-hub"
-        data-key="ak_e279ba09f6f740a2b0d605820a02b0a2"
-        async>
-</script>	  
 </head>
   <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-700">
     <div id="root"></div>
