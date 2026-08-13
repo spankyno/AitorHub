@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3b82f6" />
+    <!-- SEO Principal -->
+    <title>Herramientas Web Gratuitas y Blog  | Aitor Sánchez</title>
+    <meta name="author" content="Aitor Sánchez Gutiérrez" />
+    <meta name="description" content="Portal central de Aitor Sánchez Gutiérrez. Accede a herramientas web gratuitas (Excel Merger, Visor GPX, OCR), utilidades PDF y artículos del blog." />   
+    <meta name="google-site-verification" content="MEiDmnJOvnWITHUi0HCLxuoulOEm0oTM4fwQMugxoyY" />
+
+    <!-- Canonical: evita contenido duplicado y aclara a Google cuál es la URL de referencia de este sitio -->
+    <link rel="canonical" href="https://aitorhub.vercel.app/" />
+    <!-- Robots: permite indexación completa e imagen grande en resultados -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+    <!-- Open Graph / Facebook / WhatsApp (Social Sharing) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aitorhub.vercel.app/" />
+    <meta property="og:title" content="Aitor's Hub - Herramientas y Blog" />
+	<meta property="og:site_name" content="Aitor's Hub" />
+    <meta property="og:description" content="Colección de herramientas gratuitas y artículos desarrollados por Aitor Sánchez. Fusión de Excel, Mapas, Audio y más." />
+    <meta property="og:image" content="https://aitorhub.vercel.app/img/og-banner.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Aitor's Hub — Portal de herramientas web gratuitas" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@Kalbo___" />
+    <meta name="twitter:title" content="Aitor's Hub" />
+    <meta name="twitter:description" content="Herramientas web útiles y blog personal de Aitor Sánchez." />
+    <meta name="twitter:image" content="https://aitorhub.vercel.app/img/og-banner.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Relación con blog principal -->
+	<link rel="me" href="https://aitorsanchez.pages.dev/">
+
+    <!-- Preload imagen hero para mejorar LCP -->
+    <link rel="preload" as="image" href="/img/AitorCaricatura.jpg" fetchpriority="high" />
+
+    <!-- Google Fonts: preconnect + display=optional para no bloquear render -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=optional" rel="stylesheet" />
+
+    <!-- Datos Estructurados (JSON-LD) para Google -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Aitor's Hub",
+    "url": "https://aitorhub.vercel.app/", 
+	"description": "Portal de herramientas web gratuitas (Excel Merger, Visor GPX, OCR) y otros artículos del blog.",
+	"potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://aitorhub.vercel.app/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+		},
+    "publisher": {
+    "@type": "Person",
+    "name": "Aitor Sánchez Gutiérrez",
+    "url": "https://aitorhub.vercel.app/",
+    "image": "https://aitorhub.vercel.app/img/AitorCaricatura.jpg",
+    "sameAs": [
+      "https://x.com/Kalbo___",
+      "https://aitorsanchez.pages.dev/",
+	  "https://aitorsanchez.pages.dev/contacto/"
+    ],
+    "jobTitle": "Desarrollo Web & Creador de Contenido",
+    "description": "Creador de herramientas web de productividad, utilidades multimedia y creación de contenido del blog."
+  }
+}		
+</script>
+
+<!-- Google Analytics: carga asíncrona diferida (no bloquea render) -->
+<script>
+  window.addEventListener('load', function() {
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-FXHH0B58V9';
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-FXHH0B58V9');
+  });
+</script>
+
+<!-- Aitor's Analytics — tracker de visitas HTML -->
+<script src="https://aitors-hub-dashboard.asanchezgu.workers.dev/tracker.js"
+        data-app="aitor-hub"
+        data-key="ak_e279ba09f6f740a2b0d605820a02b0a2"
+        async>
+</script>	  
+  <script type="module" crossorigin src="/assets/index--Q5hLO4m.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/icons-D3UIqaJa.js">
+  <link rel="modulepreload" crossorigin href="/assets/react-vendor-BC1P_pIa.js">
+</head>
+  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-700">
+    <div id="root"></div>
+</body>
+</html>
