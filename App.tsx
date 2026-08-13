@@ -17,6 +17,7 @@ const App: React.FC = () => {
     if (visitLogged) return;
     visitLogged = true;
 
+    // Defer to after first paint to avoid competing with render
     const logVisit = async () => {
       try {
         // 1. Parámetro ?ref explícito (máxima prioridad)
@@ -112,8 +113,11 @@ const App: React.FC = () => {
               <img
                 src="/img/AitorCaricatura.jpg"
                 alt="Aitor Caricatura - Ir al Blog"
+                width="224"
+                height="224"
                 loading="eager"
                 fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.src = 'https://picsum.photos/400/400';

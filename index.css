@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animation delay utility for blob effect */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}

@@ -15,4 +15,21 @@ export default defineConfig({
       '@': path.resolve(__dirname, '.'),
     },
   },
+  build: {
+    // Reduce chunk size warnings threshold
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        // Split vendor code for better caching
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'icons': ['lucide-react'],
+        },
+      },
+    },
+    // Enable minification optimizations
+    minify: 'esbuild',
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+  },
 });
