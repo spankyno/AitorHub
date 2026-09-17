@@ -460,6 +460,15 @@ export const LINKS: LinkItem[] = [
     category: 'utility',
     icon: ScanText,
     isExternal: true,
+  },
+  {
+    id: 'globe3d',
+    title: 'BolAitor 3D Globe',
+    url: 'https://bolaitor-3d-globe.pages.dev/',
+    description: 'Galería de fotos en un globo 3D interactivo',
+    category: 'media',
+    icon: ImageIcon,
+    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {
