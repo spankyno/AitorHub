@@ -469,6 +469,15 @@ export const LINKS: LinkItem[] = [
     category: 'media',
     icon: ImageIcon,
     isExternal: true,
+  },
+  {
+    id: 'htmlparser',
+    title: 'HTML-Parser',
+    url: 'https://html-parser.kbo1.workers.dev/',
+    description: 'Analiza código HTML',
+    category: 'utility',
+    icon: SquareCode,
+    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {
