@@ -26,6 +26,7 @@ import {
   FolderPen,
   HardDriveUpload,
   KeyRound,
+  CircleDollarSign,	
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -477,6 +478,15 @@ export const LINKS: LinkItem[] = [
     description: 'Analiza código HTML',
     category: 'utility',
     icon: SquareCode,
+    isExternal: true,
+  },
+  {
+    id: 'plangastos',
+    title: 'PLANIFICADOR DE GASTOS - Spending Planner',
+    url: 'https://planificador-de-gastos.pages.dev/',
+    description: 'Planificador de gastos personal y familiar',
+    category: 'utility',
+    icon: circle-dollar-sign,
     isExternal: true,
   }
 ];
