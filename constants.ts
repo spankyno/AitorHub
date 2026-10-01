@@ -486,7 +486,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://planificador-de-gastos.pages.dev/',
     description: 'Planificador de gastos personal y familiar',
     category: 'utility',
-    icon: circle-dollar-sign,
+    icon: CircleDollarSign,
     isExternal: true,
   }
 ];
