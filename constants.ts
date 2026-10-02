@@ -488,6 +488,15 @@ export const LINKS: LinkItem[] = [
     category: 'utility',
     icon: CircleDollarSign,
     isExternal: true,
+  },
+  {
+    id: 'dnianticopy',
+    title: "DNI Anticopia",
+    url: 'https://dni-anticopia.kbo1.workers.dev/',
+    description: 'Protege tu DNI y Documentos contra el el Fraude y la IA',
+    category: 'security',
+    icon: KeyRound,
+    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {
