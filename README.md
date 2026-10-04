@@ -21,7 +21,7 @@ AitorHub es un **hub de aplicaciones** rápido y optimizado que centraliza en un
 La plataforma cuenta con un motor de búsqueda instantáneo en tiempo real que permite filtrar las herramientas cómodamente y un registro seguro y anónimo de visitas basado en serverless para estadísticas de uso.
 
 ### Selección de herramientas destacadas
-
+ 
 | Herramienta | Descripción | Categoría |
 | :--- | :--- | :--- |
 | **Excel Merger** | Fusión rápida de múltiples archivos y listas Excel en un único documento. | 📊 Productividad / Excel |
