@@ -482,7 +482,7 @@ export const LINKS: LinkItem[] = [
   },
   {
     id: 'plangastos',
-    title: 'PLANIFICADOR DE GASTOS - Spending Planner',
+    title: 'Planificador de Gastos - Spending Planner',
     url: 'https://planificador-de-gastos.pages.dev/',
     description: 'Planificador de gastos personal y familiar',
     category: 'utility',
@@ -496,6 +496,15 @@ export const LINKS: LinkItem[] = [
     description: 'Protege tu DNI y Documentos contra el el Fraude y la IA',
     category: 'security',
     icon: KeyRound,
+    isExternal: true,
+  },
+  {
+    id: 'calculainteres',
+    title: 'Calculadora de intereses',
+    url: 'https://calculadora-de-intereses-coral.vercel.app/',
+    description: 'Calcula intereses, depósitos, hipotecas, TAE, Amortizaciones, etc...',
+    category: 'utility',
+    icon: CircleDollarSign,
     isExternal: true,
   }
 ];
