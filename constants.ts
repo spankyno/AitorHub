@@ -26,7 +26,8 @@ import {
   FolderPen,
   HardDriveUpload,
   KeyRound,
-  CircleDollarSign,	
+  CircleDollarSign,
+  ChartNoAxesCombined,
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -505,6 +506,33 @@ export const LINKS: LinkItem[] = [
     description: 'Calcula intereses, depósitos, hipotecas, TAE, Amortizaciones, etc...',
     category: 'utility',
     icon: CircleDollarSign,
+    isExternal: true,
+  },
+  {
+    id: 'quitafondos',
+    title: 'Quita Fondos de imagen',
+    url: 'https://quitafondos.kbo1.workers.dev/',
+    description: 'Elimina el fondo de tus imágenes y fotos automáticamente',
+    category: 'media',
+    icon: ImageIcon,
+    isExternal: true,
+  },
+  {
+    id: 'creaurl',
+    title: "Crea URL",
+    url: 'https://crea-url.kbo1.workers.dev/',
+    description: 'Pega un HTML y obtén al instante una URL pública',
+    category: 'development',
+    icon: SquareCode,
+    isExternal: true,
+  },
+  {
+    id: 'kronogantt',
+    title: 'Krono Gantt',
+    url: 'https://krono-gantt.vercel.app/',
+    description: 'Creación y gestión de Diagramas de Gantt',
+    category: 'utility',
+    icon: ChartNoAxesCombined,
     isExternal: true,
   }
 ];
