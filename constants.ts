@@ -28,6 +28,7 @@ import {
   KeyRound,
   CircleDollarSign,
   ChartNoAxesCombined,
+  GlobeLock,
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -533,6 +534,24 @@ export const LINKS: LinkItem[] = [
     description: 'Creación y gestión de Diagramas de Gantt',
     category: 'utility',
     icon: ChartNoAxesCombined,
+    isExternal: true,
+  },
+  {
+    id: 'textconvert',
+    title: "Text Converter",
+    url: 'https://text-converter-ait.vercel.app/',
+    description: 'Conversión bidireccional: Markdown, HTML, Rich Text y Texto Plano',
+    category: 'tool',
+    icon: FileText,
+    isExternal: true,
+  },
+  {
+    id: 'networktools',
+    title: 'Network Tools',
+    url: 'https://network-tools-aif.pages.dev/',
+    description: 'Plataforma profesional de diagnóstico de red',
+    category: 'tool',
+    icon: GlobeLock,
     isExternal: true,
   }
 ];
