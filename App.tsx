@@ -1,7 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Twitter } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { LINKS, SOCIAL_LINKS } from './constants';
 import { LinkCard } from './components/LinkCard';
+
+// lucide-react v1 no longer ships brand icons, so the X (Twitter) logo is inlined.
+const XIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
 
 // Module-level flag: lives outside the component so it survives
 // React StrictMode's intentional unmount/remount cycle in development.
@@ -172,7 +180,7 @@ const App: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center px-5 py-2 rounded-full bg-white shadow-sm border border-slate-200 text-slate-600 hover:text-blue-500 hover:border-blue-200 hover:shadow-md transition-all duration-300"
           >
-            <Twitter className="w-5 h-5 mr-2" />
+            <XIcon className="w-5 h-5 mr-2" />
             <span className="font-medium">@Kalbo___</span>
           </a>
         </header>
