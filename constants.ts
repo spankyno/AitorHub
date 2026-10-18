@@ -29,6 +29,7 @@ import {
   CircleDollarSign,
   ChartNoAxesCombined,
   GlobeLock,
+  DatabaseCheck,  
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -552,6 +553,15 @@ export const LINKS: LinkItem[] = [
     description: 'Plataforma profesional de diagnóstico de red',
     category: 'tool',
     icon: GlobeLock,
+    isExternal: true,
+  },
+  {
+    id: 'accesscompare',
+    title: "Compara Access Database",
+    url: 'https://compara-access.vercel.app/',
+    description: 'Compara Bases de Datos de MS Access',
+    category: 'tool',
+    icon: DatabaseCheck,
     isExternal: true,
   }
 ];
