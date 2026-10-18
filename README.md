@@ -30,6 +30,7 @@ La plataforma cuenta con un motor de búsqueda instantáneo en tiempo real que p
 | **Extrae Texto de Imagen (OCR)** | Herramienta para digitalizar y transcribir texto a partir de capturas o fotos. | 🔧 Utilidades |
 | **Audio a Texto** | Transcripción inteligente y automatizada de grabaciones de voz. | 🎙️ Multimedia |
 | **Juego buscar municipios** | Mapa interactivo educativo para ubicar municipios sobre la geografía. | 🎮 Ocio |
+| **Compara Access Database** | Comparación de bases de datos de MS Access. | 🔧 Herramientas |
 
 ---
 
@@ -88,14 +89,20 @@ AitorHub/
 │   └── LinkCard.tsx            # Componente de tarjeta de herramienta
 ├── public/
 │   ├── favicon.ico            # Favicon ligero y optimizado
+│   ├── robots.txt             # Reglas para rastreadores
+│   ├── sitemap.xml            # Mapa del sitio para buscadores
 │   └── img/
 │       ├── AitorCaricatura.jpg   # Formato clásico de fallback
-│       └── AitorCaricatura.webp  # Formato optimizado para LCP rápido
+│       ├── AitorCaricatura.webp  # Formato optimizado para LCP rápido
+│       └── og-banner.jpg         # Imagen para compartir en redes (1200×630)
+├── .env.example                # Plantilla de variables de entorno
 ├── App.tsx                     # Componente y diseño principal
 ├── constants.ts                # Catálogo de enlaces e información de herramientas
+├── types.ts                    # Tipos de TypeScript (LinkItem, LinkCategory)
 ├── index.tsx                   # Punto de entrada de React
 ├── index.html                  # Plantilla HTML base
 ├── index.css                   # Punto de importación de estilos Tailwind CSS
+├── package.json                # Dependencias y scripts
 ├── postcss.config.js           # Configuración de PostCSS
 ├── tailwind.config.js          # Configuración personalizada de Tailwind
 ├── tsconfig.json               # Configuración de TypeScript
@@ -119,6 +126,10 @@ Edita `constants.ts` e introduce una nueva entrada en la constante `LINKS`:
   isExternal: true,
 }
 ```
+
+Recuerda importar el icono en la cabecera de `constants.ts` (`import { NombreIcono } from 'lucide-react'`). Las marcas (Twitter/X, GitHub, etc.) ya no existen en `lucide-react` v1, así que para esos casos usa un SVG propio.
+
+Si quieres que Google lo vea cuanto antes, actualiza también `lastmod` en `public/sitemap.xml`.
 
 ---
 

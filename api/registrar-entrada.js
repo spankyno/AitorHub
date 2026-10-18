@@ -8,6 +8,17 @@ const ALLOWED_ORIGINS = [
   'http://localhost:3000',
 ];
 
+// Extracts the normalised origin ("https://host[:port]") from an Origin or
+// Referer header value. Returns '' if the value is missing or not a valid URL.
+function getOrigin(value) {
+  if (!value || typeof value !== 'string') return '';
+  try {
+    return new URL(value).origin;
+  } catch {
+    return '';
+  }
+}
+
 // Simple IPv4/IPv6 format validation
 function isValidIP(ip) {
   if (!ip || typeof ip !== 'string') return false;
@@ -38,8 +49,10 @@ function isRateLimited(ip) {
 
 export default async function handler(req, res) {
   // ── CORS / Origin check ─────────────────────────────────────────────────
-  const origin = req.headers['origin'] || req.headers['referer'] || '';
-  const originAllowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o));
+  // Compare the exact origin (scheme + host + port). Using startsWith() would
+  // also accept lookalikes such as https://aitorhub.vercel.app.evil.com
+  const origin = getOrigin(req.headers['origin'] || req.headers['referer']);
+  const originAllowed = ALLOWED_ORIGINS.includes(origin);
 
   res.setHeader('Access-Control-Allow-Origin', originAllowed ? origin : ALLOWED_ORIGINS[0]);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
