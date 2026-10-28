@@ -30,6 +30,7 @@ import {
   ChartNoAxesCombined,
   GlobeLock,
   DatabaseCheck,
+  PencilRuler
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -563,7 +564,25 @@ export const LINKS: LinkItem[] = [
     category: 'tool',
     icon: DatabaseCheck,
     isExternal: true,
-  }
+  },
+  {
+    id: 'ipidentifica',
+    title: "IP IdentificAitor",
+    url: 'https://ip-identificaitor.pages.dev/',
+    description: 'Analiza al instante el riesgo de cualquier IP, correo electrónico, teléfono o dominio',
+    category: 'security',
+    icon: GlobeLock,
+    isExternal: true,
+  },
+  {
+    id: 'homedesign2d',
+    title: 'Home Design 2D',
+    url: 'https://home-design-2d.pages.dev/',
+    description: 'Dibuja y diseña croquis de interiores y mobiliario con precisión',
+    category: 'utility',
+    icon: PencilRuler,
+    isExternal: true,
+  }  
 ];
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
