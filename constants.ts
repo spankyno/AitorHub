@@ -582,7 +582,16 @@ export const LINKS: LinkItem[] = [
     category: 'utility',
     icon: PencilRuler,
     isExternal: true,
-  }  
+  },
+  {
+    id: 'traducefoto',
+    title: "Traduce Foto",
+    url: 'https://traducefoto.pages.dev/',
+    description: 'Traduce el texto de las fotos de la cámara o la galería',
+    category: 'utility',
+    icon: ScanText,
+    isExternal: true,
+  }
 ];
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
