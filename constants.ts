@@ -30,7 +30,8 @@ import {
   ChartNoAxesCombined,
   GlobeLock,
   DatabaseCheck,
-  PencilRuler
+  PencilRuler,
+  SixteenthNotes
 } from 'lucide-react';
 import { LinkItem } from './types';
 
@@ -590,6 +591,26 @@ export const LINKS: LinkItem[] = [
     description: 'Traduce el texto de las fotos de la cámara o la galería',
     category: 'utility',
     icon: ScanText,
+    isExternal: true,
+  },
+  {
+    id: 'mp3tageditor',
+    title: 'Editor etiquetas MP3 online',
+    url: 'https://mp3tageditor-7zg.pages.dev/',
+    description:
+      'Editor de etiquetas ID3 de archivos MP3. Edita metadatos y carátulas por lotes.',
+    category: 'media',
+    icon: SixteenthNotes,
+    isExternal: true,
+  },
+  {
+    id: 'editaudio',
+    title: 'Audio Studio',
+    url: 'https://aitor-audio-studio.pages.dev/',
+    description:
+      'Editor de audio online multipista',
+    category: 'media',
+    icon: SixteenthNotes,
     isExternal: true,
   }
 ];
