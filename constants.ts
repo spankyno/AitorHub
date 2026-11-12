@@ -612,6 +612,16 @@ export const LINKS: LinkItem[] = [
     category: 'media',
     icon: SixteenthNotes,
     isExternal: true,
+  },
+  {
+    id: 'audioconvert',
+    title: 'Convertidor de Audio',
+    url: 'https://audio-converter-car.pages.dev/',
+    description:
+      'Convierte online MP3, WAV, FLAC, M4A y más.',
+    category: 'media',
+    icon: SixteenthNotes,
+    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {
