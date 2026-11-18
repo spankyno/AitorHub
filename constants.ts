@@ -622,6 +622,15 @@ export const LINKS: LinkItem[] = [
     category: 'media',
     icon: SixteenthNotes,
     isExternal: true,
+  },
+  {
+    id: 'mapaisocronas',
+    title: 'Mapa Isocronas',
+    url: 'https://mapaisocronas.vercel.app/',
+    description: 'Cálculo de la distancia recorrida en un tiempo determinado sobre un mapa',
+    category: 'navigation',
+    icon: MapPin,
+    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {
