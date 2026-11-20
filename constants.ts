@@ -44,7 +44,6 @@ export const LINKS: LinkItem[] = [
     description: 'La página principal de mi blog personal con artículos y novedades.',
     category: 'blog',
     icon: Zap,
-    isExternal: true,
   },
   {
     id: 'excel',
@@ -53,37 +52,33 @@ export const LINKS: LinkItem[] = [
     description: 'Herramienta para fusionar múltiples listas de Excel en un único archivo.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'compare',
     title: 'Excel Lists Compare',
-    url: 'https://excel-lists-compare.vercel.app',
+    url: 'https://excel-lists-compare.vercel.app/',
     description:
       'Herramienta para fusionar múltiples listas de Excel en un único archivo, usando columna maestra.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'formatoexcel',
     title: 'Formatear Excel',
-    url: 'https://formatear-excel.kbo1.workers.dev',
+    url: 'https://formatear-excel.kbo1.workers.dev/',
     description:
       'Herramienta online para formatear libros de Excel y CSV con una presentación profesional',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'processexcel',
     title: 'Excel Lists Process',
-    url: 'https://excel-lists-process.pages.dev',
+    url: 'https://excel-lists-process.pages.dev/',
     description:
       'Herramienta para consolidación con suma y comparación en paralelo de listas de Excel',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'passgen',
@@ -92,7 +87,6 @@ export const LINKS: LinkItem[] = [
     description: 'Generador de contraseñas premium, 100% local, sin servidores, sin registro y enfocado en privacidad.',
     category: 'security',
     icon: KeyRound,
-    isExternal: true,
   },
   {
     id: 'excelsheet',
@@ -101,7 +95,6 @@ export const LINKS: LinkItem[] = [
     description: 'Elimina las contraseñas de bloqueo de las hojas Excel.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'exceltext',
@@ -110,16 +103,14 @@ export const LINKS: LinkItem[] = [
     description: 'Genera cadenas de texto iterativas y personalizadas.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'folderxlsx',
     title: 'MyFolder2Xlsx',
-    url: 'https://myfolder2xlsx.netlify.app',
+    url: 'https://myfolder2xlsx.netlify.app/',
     description: 'Obtiene información del contenido de una carpeta en formato Excel.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },
   {
     id: 'folderinfo',
@@ -129,7 +120,6 @@ export const LINKS: LinkItem[] = [
       'Obtiene información del contenido de una carpeta de diferentes fuentes en diferentes formatos.',
     category: 'tool',
     icon: FileSpreadsheet,
-    isExternal: true,
   },  
   {
     id: 'pk',
@@ -138,7 +128,6 @@ export const LINKS: LinkItem[] = [
     description: 'Localiza puntos kilométricos exactos en carreteras.',
     category: 'tool',
     icon: MapPin,
-    isExternal: true,
   },
   {
     id: 'fotomap',
@@ -147,7 +136,6 @@ export const LINKS: LinkItem[] = [
     description: 'Geolocaliza tus fotos en mapas interactivos.',
     category: 'tool',
     icon: MapPin,
-    isExternal: true,
   },
   {
     id: 'audio-rec',
@@ -156,7 +144,6 @@ export const LINKS: LinkItem[] = [
     description: 'Graba audio directamente desde tu navegador sin instalar nada.',
     category: 'media',
     icon: Mic,
-    isExternal: true,
   },
   {
     id: 'pdfscrap',
@@ -165,7 +152,6 @@ export const LINKS: LinkItem[] = [
     description: 'Analiza y extrae datos específicos de documentos PDF (PDF Scrapping).',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'pdfedit',
@@ -174,7 +160,6 @@ export const LINKS: LinkItem[] = [
     description: 'Todo tipo de herramientas para archivos PDF.',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'bloc',
@@ -183,7 +168,6 @@ export const LINKS: LinkItem[] = [
     description: 'Bloc de notas online. También dispone de apk para Android.',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'csvjson',
@@ -192,7 +176,6 @@ export const LINKS: LinkItem[] = [
     description: 'Conversor CSV JSON.',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'ip',
@@ -201,7 +184,6 @@ export const LINKS: LinkItem[] = [
     description: 'Geolocalización y detalles sobre direcciones IP.',
     category: 'utility',
     icon: Globe,
-    isExternal: true,
   },
   {
     id: 'audio-text',
@@ -210,7 +192,6 @@ export const LINKS: LinkItem[] = [
     description: 'Transcribe grabaciones de voz a texto editable automáticamente.',
     category: 'media',
     icon: FileAudio,
-    isExternal: true,
   },
   {
     id: 'rastrea',
@@ -219,7 +200,6 @@ export const LINKS: LinkItem[] = [
     description: 'Sistema de rastreo de dispositivos sencillo y eficaz.',
     category: 'utility',
     icon: Radar,
-    isExternal: true,
   },
   {
     id: 'ocr',
@@ -228,7 +208,6 @@ export const LINKS: LinkItem[] = [
     description: 'Tecnología OCR para sacar texto de fotos o capturas de pantalla.',
     category: 'utility',
     icon: ScanText,
-    isExternal: true,
   },
   {
     id: 'gal',
@@ -237,7 +216,6 @@ export const LINKS: LinkItem[] = [
     description: 'Galería de imágenes para visualización de activos.',
     category: 'media',
     icon: ImageIcon,
-    isExternal: true,
   },
   {
     id: 'img',
@@ -246,7 +224,6 @@ export const LINKS: LinkItem[] = [
     description: 'Conversor y optimizador de formatos de imágenes rápido.',
     category: 'media',
     icon: ImageIcon,
-    isExternal: true,
   },
   {
     id: 'logip',
@@ -256,7 +233,6 @@ export const LINKS: LinkItem[] = [
       'Loguea tu dirección IP, junto con un comentario y datos del S.O. visitante.',
     category: 'connectivity',
     icon: Airplay,
-    isExternal: true,
   },
   {
     id: 'georef1',
@@ -265,7 +241,6 @@ export const LINKS: LinkItem[] = [
     description: 'Posiciona fotos en un mapa v.1.',
     category: 'navigation',
     icon: MapPin,
-    isExternal: true,
   },
   {
     id: 'georef2',
@@ -274,7 +249,6 @@ export const LINKS: LinkItem[] = [
     description: 'Posiciona fotos en un mapa v.2.',
     category: 'navigation',
     icon: MapPinCheckInside,
-    isExternal: true,
   },
   {
     id: 'georef3',
@@ -283,7 +257,6 @@ export const LINKS: LinkItem[] = [
     description: 'Inserta información geográfica en fotos.',
     category: 'navigation',
     icon: MapPinCheckInside,
-    isExternal: true,
   },
   {
     id: 'pdf2xls',
@@ -292,7 +265,6 @@ export const LINKS: LinkItem[] = [
     description: 'Convierte tablas de documentos Pdf a Excel.',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'sysevent',
@@ -301,7 +273,6 @@ export const LINKS: LinkItem[] = [
     description: 'Obtén informes de tiempo de uso a través de los eventos del sistema.',
     category: 'connectivity',
     icon: MonitorCog,
-    isExternal: true,
   },
   {
     id: 'gpxviewer',
@@ -310,7 +281,6 @@ export const LINKS: LinkItem[] = [
     description: 'Visualiza rutas de archivos .gpx.',
     category: 'navigation',
     icon: Locate,
-    isExternal: true,
   }, 
   {
     id: 'memories',
@@ -319,7 +289,6 @@ export const LINKS: LinkItem[] = [
     description: 'Crea vídeos con fotos y música.',
     category: 'multimedia',
     icon: Clapperboard,
-    isExternal: true,
   },
   {
     id: 'emoji',
@@ -328,7 +297,6 @@ export const LINKS: LinkItem[] = [
     description: 'Explora, visualiza, copia diferentes emojis.',
     category: 'emoji',
     icon: SmilePlus,
-    isExternal: true,
   },
   {
     id: 'videotrim',
@@ -337,7 +305,6 @@ export const LINKS: LinkItem[] = [
     description: 'Procesamiento de recorte de vídeo con inclusión de audio.',
     category: 'tool',
     icon: SquareScissors,
-    isExternal: true,
   },
   {
     id: 'grabaweb',
@@ -346,7 +313,6 @@ export const LINKS: LinkItem[] = [
     description: 'Grabador de pantalla online.',
     category: 'tool',
     icon: Video,
-    isExternal: true,
   },
   {
     id: 'grabaweb2',
@@ -355,16 +321,14 @@ export const LINKS: LinkItem[] = [
     description: 'Grabador de pantalla online, con almacenamiento y procesado FFmpeg.',
     category: 'tool',
     icon: Video,
-    isExternal: true,
   },
   {
     id: 'qrcode',
     title: 'QR Generaitor',
-    url: 'https://qrgeneraitor.netlify.app',
+    url: 'https://qrgeneraitor.netlify.app/',
     description: 'Genera códigos QR.',
     category: 'connectivity',
     icon: QrCode,
-    isExternal: true,
   },
   {
     id: 'test',
@@ -373,7 +337,6 @@ export const LINKS: LinkItem[] = [
     description: 'Genera exámenes tipo test, a partir de un tema o un pdf.',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'metadata',
@@ -382,7 +345,6 @@ export const LINKS: LinkItem[] = [
     description: 'Elimina metadatos y EXIF de archivos.',
     category: 'files',
     icon: Eraser,
-    isExternal: true,
   },
   {
     id: 'metadeditor',
@@ -391,7 +353,6 @@ export const LINKS: LinkItem[] = [
     description: 'Edición de metadatos y EXIF de imágenes.',
     category: 'photography',
     icon: Images,
-    isExternal: true,
   },
   {
     id: 'municipios',
@@ -400,7 +361,6 @@ export const LINKS: LinkItem[] = [
     description: 'Juego interactivo para ubicar municipios en un mapa.',
     category: 'game',
     icon: MapIcon,
-    isExternal: true,
   },
   {
     id: 'css',
@@ -409,7 +369,6 @@ export const LINKS: LinkItem[] = [
     description: 'Muestra estilos CSS y crea HTML con esos estilos.',
     category: 'development',
     icon: SquareCode,
-    isExternal: true,
   },
   {
     id: 'scrap',
@@ -419,7 +378,6 @@ export const LINKS: LinkItem[] = [
       'Plataforma de Extracción, Monitorización y Visualización de Precios web.',
     category: 'utility',
     icon: Radar,
-    isExternal: true,
   },
   {
     id: 'renomb',
@@ -428,7 +386,6 @@ export const LINKS: LinkItem[] = [
     description: 'Herramienta para el renombrado masivo de archivos.',
     category: 'files',
     icon: FolderPen,
-    isExternal: true,
   },
   {
     id: 'miraa',
@@ -437,16 +394,14 @@ export const LINKS: LinkItem[] = [
     description: 'Compartir pantalla/webcam online',
     category: 'tool',
     icon: Video,
-    isExternal: true,
   },
   {
     id: 'paste',
     title: 'PrivatePaste',
-    url: 'https://privatepaste-production.kbo1.workers.dev',
+    url: 'https://privatepaste-production.kbo1.workers.dev/',
     description: 'Comparte código tipo Pastebin. Control privacidad total',
     category: 'utility',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'ipfs_drive',
@@ -455,7 +410,6 @@ export const LINKS: LinkItem[] = [
     description: 'Almacenamiento distribuido IPFS para tus archivos.',
     category: 'files',
     icon: HardDriveUpload,
-    isExternal: true,
   },
   {
     id: 'plagio',
@@ -464,7 +418,6 @@ export const LINKS: LinkItem[] = [
     description: 'Detector de plagio e IA',
     category: 'utility',
     icon: ScanText,
-    isExternal: true,
   },
   {
     id: 'globe3d',
@@ -473,7 +426,6 @@ export const LINKS: LinkItem[] = [
     description: 'Galería de fotos en un globo 3D interactivo',
     category: 'media',
     icon: ImageIcon,
-    isExternal: true,
   },
   {
     id: 'htmlparser',
@@ -482,7 +434,6 @@ export const LINKS: LinkItem[] = [
     description: 'Analiza código HTML',
     category: 'utility',
     icon: SquareCode,
-    isExternal: true,
   },
   {
     id: 'plangastos',
@@ -491,7 +442,6 @@ export const LINKS: LinkItem[] = [
     description: 'Planificador de gastos personal y familiar',
     category: 'utility',
     icon: CircleDollarSign,
-    isExternal: true,
   },
   {
     id: 'dnianticopy',
@@ -500,7 +450,6 @@ export const LINKS: LinkItem[] = [
     description: 'Protege tu DNI y Documentos contra el el Fraude y la IA',
     category: 'security',
     icon: KeyRound,
-    isExternal: true,
   },
   {
     id: 'calculainteres',
@@ -509,7 +458,6 @@ export const LINKS: LinkItem[] = [
     description: 'Calcula intereses, depósitos, hipotecas, TAE, Amortizaciones, etc...',
     category: 'utility',
     icon: CircleDollarSign,
-    isExternal: true,
   },
   {
     id: 'quitafondos',
@@ -518,7 +466,6 @@ export const LINKS: LinkItem[] = [
     description: 'Elimina el fondo de tus imágenes y fotos automáticamente',
     category: 'media',
     icon: ImageIcon,
-    isExternal: true,
   },
   {
     id: 'creaurl',
@@ -527,7 +474,6 @@ export const LINKS: LinkItem[] = [
     description: 'Pega un HTML y obtén al instante una URL pública',
     category: 'development',
     icon: SquareCode,
-    isExternal: true,
   },
   {
     id: 'kronogantt',
@@ -536,7 +482,6 @@ export const LINKS: LinkItem[] = [
     description: 'Creación y gestión de Diagramas de Gantt',
     category: 'utility',
     icon: ChartNoAxesCombined,
-    isExternal: true,
   },
   {
     id: 'textconvert',
@@ -545,7 +490,6 @@ export const LINKS: LinkItem[] = [
     description: 'Conversión bidireccional: Markdown, HTML, Rich Text y Texto Plano',
     category: 'tool',
     icon: FileText,
-    isExternal: true,
   },
   {
     id: 'networktools',
@@ -554,7 +498,6 @@ export const LINKS: LinkItem[] = [
     description: 'Plataforma profesional de diagnóstico de red',
     category: 'tool',
     icon: GlobeLock,
-    isExternal: true,
   },
   {
     id: 'accesscompare',
@@ -563,7 +506,6 @@ export const LINKS: LinkItem[] = [
     description: 'Compara Bases de Datos de MS Access',
     category: 'tool',
     icon: DatabaseCheck,
-    isExternal: true,
   },
   {
     id: 'ipidentifica',
@@ -572,7 +514,6 @@ export const LINKS: LinkItem[] = [
     description: 'Analiza al instante el riesgo de cualquier IP, correo electrónico, teléfono o dominio',
     category: 'security',
     icon: GlobeLock,
-    isExternal: true,
   },
   {
     id: 'homedesign2d',
@@ -581,7 +522,6 @@ export const LINKS: LinkItem[] = [
     description: 'Dibuja y diseña croquis de interiores y mobiliario con precisión',
     category: 'utility',
     icon: PencilRuler,
-    isExternal: true,
   },
   {
     id: 'traducefoto',
@@ -590,7 +530,6 @@ export const LINKS: LinkItem[] = [
     description: 'Traduce el texto de las fotos de la cámara o la galería',
     category: 'utility',
     icon: ScanText,
-    isExternal: true,
   },
   {
     id: 'mp3tageditor',
@@ -600,7 +539,6 @@ export const LINKS: LinkItem[] = [
       'Editor de etiquetas ID3 de archivos MP3. Edita metadatos y carátulas por lotes.',
     category: 'media',
     icon: SixteenthNotes,
-    isExternal: true,
   },
   {
     id: 'editaudio',
@@ -610,7 +548,6 @@ export const LINKS: LinkItem[] = [
       'Editor de audio online multipista',
     category: 'media',
     icon: SixteenthNotes,
-    isExternal: true,
   },
   {
     id: 'audioconvert',
@@ -620,7 +557,6 @@ export const LINKS: LinkItem[] = [
       'Convierte online MP3, WAV, FLAC, M4A y más.',
     category: 'media',
     icon: SixteenthNotes,
-    isExternal: true,
   },
   {
     id: 'mapaisocronas',
@@ -629,7 +565,6 @@ export const LINKS: LinkItem[] = [
     description: 'Cálculo de la distancia recorrida en un tiempo determinado sobre un mapa',
     category: 'navigation',
     icon: MapPin,
-    isExternal: true,
   }
 ];
 export const SOCIAL_LINKS = {

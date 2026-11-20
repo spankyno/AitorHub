@@ -1,12 +1,16 @@
 {
-  "name": "aitor's-hub",
+  "name": "aitor-hub",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "vite",
+    "validate": "node scripts/validate-catalog.mjs",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run validate && tsc --noEmit && vite build && vite build --ssr entry-server.tsx --outDir .ssr && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

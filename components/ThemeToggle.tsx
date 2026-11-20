@@ -3,9 +3,15 @@ import { Moon, Sun } from 'lucide-react';
 import { currentTheme, toggleTheme, watchTheme, type Theme } from '../theme';
 
 export const ThemeToggle: React.FC = () => {
-  const [theme, setTheme] = useState<Theme>(currentTheme);
+  // El HTML prerenderizado no conoce el tema del visitante: el estado real se lee tras montar.
+  // Los iconos cambian solo con CSS (según data-theme, que fija un script de <head>),
+  // así que se ven bien desde el primer pintado.
+  const [theme, setTheme] = useState<Theme>('light');
 
-  useEffect(() => watchTheme(setTheme), []);
+  useEffect(() => {
+    setTheme(currentTheme());
+    return watchTheme(setTheme);
+  }, []);
 
   const isDark = theme === 'dark';
 
@@ -18,7 +24,8 @@ export const ThemeToggle: React.FC = () => {
       title={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-edge bg-surface text-body shadow-sm transition-colors hover:text-accent-hover"
     >
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      <Moon className="block h-5 w-5 dark:hidden" />
+      <Sun className="hidden h-5 w-5 dark:block" />
       <span className="sr-only">Modo oscuro</span>
     </button>
   );

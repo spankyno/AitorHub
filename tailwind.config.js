@@ -8,6 +8,7 @@ export default {
   content: [
     './index.html',
     './privacidad.html',
+    './404.html',
     './*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
   ],

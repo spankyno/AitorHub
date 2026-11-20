@@ -26,31 +26,13 @@ const SEARCH_INDEX: { link: LinkItem; text: string }[] = LINKS.map((link) => ({
 }));
 
 const App: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>(
-    () => new URLSearchParams(window.location.search).get('q') ?? ''
-  );
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // Inyecta JSON-LD ItemList para que Google entienda la lista de herramientas
+  // ?q= (la SearchAction de los datos estructurados). Se lee tras montar, no en el estado inicial,
+  // para que el HTML prerenderizado (sin window) y la hidratación coincidan.
   useEffect(() => {
-    const scriptId = 'itemlist-jsonld';
-    if (document.getElementById(scriptId)) return;
-    const itemList = {
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: "Herramientas de Aitor's Hub",
-      itemListElement: LINKS.map((link, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: link.title,
-        url: link.url,
-        description: link.description,
-      })),
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = scriptId;
-    script.textContent = JSON.stringify(itemList);
-    document.head.appendChild(script);
+    const q = new URLSearchParams(window.location.search).get('q');
+    if (q) setSearchTerm(q);
   }, []);
 
   // Filter links based on search input
@@ -134,7 +116,7 @@ const App: React.FC = () => {
             href={SOCIAL_LINKS.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2 rounded-full bg-surface shadow-sm border border-edge text-body hover:text-accent-hover hover:border-brand-400 hover:shadow-md transition-all duration-300"
+            className="inline-flex items-center px-5 py-2 rounded-full bg-surface shadow-sm border border-edge text-body hover:text-accent-hover hover:border-brand-400 hover:shadow-md transition-[color,border-color,box-shadow] duration-300"
           >
             <XIcon className="w-5 h-5 mr-2" />
             <span className="font-medium">@Kalbo___</span>

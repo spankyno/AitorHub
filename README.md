@@ -39,7 +39,9 @@ La plataforma cuenta con un motor de búsqueda instantáneo en tiempo real que p
 La aplicación ha sido optimizada para conseguir el máximo rendimiento en producción (**90+ en Lighthouse Performance**):
 
 - **React 19** & **TypeScript** (`strict`) — Interfaz reactiva y tipada de forma estricta; `npm run typecheck` se ejecuta también antes de cada `build`.
-- **Vite 6** — Empaquetador ultra-rápido configurado con optimizaciones avanzadas de *Code Splitting* (separación de React-DOM, Lucide Icons y lógica propia para maximizar la caché del navegador).
+- **Vite 6** — Empaquetador y servidor de desarrollo. Sin configuración de chunks a medida: los valores por defecto bastan.
+- **Página 404 propia** — `404.html` se sirve automáticamente en Vercel para cualquier ruta inexistente (con estado 404). Es estática, `noindex`, respeta el tema guardado y trae un buscador que funciona sin JavaScript. `npm run preview` la emula en local.
+- **Prerenderizado (SSG)** — `npm run build` genera `dist/index.html` con las 65 tarjetas ya dentro del HTML y el JSON-LD `ItemList` incluido (buscadores y previsualizadores no necesitan ejecutar JavaScript); en el navegador React solo *hidrata*. Funciona sin `react-router` ni librerías extra: `entry-server.tsx` + un build SSR de Vite + `scripts/prerender.mjs`. El catálogo (`constants.ts`) es la fuente única del HTML, del JSON-LD y del sitemap.
 - **Tailwind CSS 3** + **PostCSS** + **Autoprefixer** — Estilos CSS compilados y purgados nativamente en el build en lugar de usar librerías en caliente (CDN), eliminando el bloqueo del hilo principal.
 - **Inter autoalojada** (`@fontsource-variable/inter`) — Sin peticiones a Google Fonts: la fuente se sirve desde el propio dominio (el navegador solo descarga el subset que necesita, ~48 KB para español).
 - **Modo claro/oscuro con botón manual** — Por defecto sigue `prefers-color-scheme` del sistema; el botón (arriba a la derecha, también en `/privacidad`) guarda la elección en `localStorage` (clave `theme`, solo `light` o `dark`). Un script en `<head>` aplica el tema antes del primer pintado, así que no hay destello; si el almacenamiento está bloqueado funciona durante la sesión, y sin JavaScript se sigue al sistema. Se sincroniza entre pestañas y la barra del navegador (`theme-color`) cambia con el tema. Los colores son tokens semánticos (`bg-page`, `bg-surface`, `text-ink`, `text-body`, `text-muted`, `border-edge`, `text-accent`…) definidos en `index.css`; para cambiar la paleta basta con editar esas variables.
@@ -54,7 +56,7 @@ La aplicación ha sido optimizada para conseguir el máximo rendimiento en produ
 
 ## Instalación y Desarrollo Local
 
-**Requisitos previos:** Node.js 18+
+**Requisitos previos:** Node.js 22 (ver `.nvmrc`)
 
 ```bash
 # 1. Clona el repositorio
@@ -74,7 +76,11 @@ No hay variables de entorno ni backend propio: el proyecto es 100 % estático.
 
 Búsqueda: ignora mayúsculas y tildes ("informacion" encuentra "información").
 
-Scripts: `npm run dev` · `npm run typecheck` · `npm run build` · `npm run preview`.
+Scripts: `npm run dev` · `npm run validate` · `npm run typecheck` · `npm run build` · `npm run preview`.
+
+**Versión de Node:** 22 (`engines` en `package.json` y `.nvmrc`; `nvm use` la selecciona). Vercel lee `engines` y usa Node 22.x.
+
+`npm run build` encadena: validación del catálogo → comprobación de tipos → build del cliente (`dist/`) → build SSR (`.ssr/`, temporal) → `scripts/prerender.mjs` (inyecta el HTML y el JSON-LD en `dist/index.html` y genera `dist/sitemap.xml`). En `npm run dev` no hay prerenderizado: la app se monta desde cero, como siempre.
 
 ---
 
@@ -87,18 +93,25 @@ AitorHub/
 │   ├── ThemeToggle.tsx         # Botón de modo claro/oscuro
 │   └── LinkCard.tsx            # Componente de tarjeta de herramienta
 ├── public/
-│   ├── favicon.ico            # Favicon ligero y optimizado
-│   ├── robots.txt             # Reglas para rastreadores
-│   ├── sitemap.xml            # Mapa del sitio para buscadores
+│   ├── favicon.ico / favicon.svg   # Favicons (el SVG está optimizado con SVGO)
+│   ├── apple-touch-icon.png        # Icono para iOS (180×180)
+│   ├── icon-192.png, icon-512.png, icon-maskable-512.png  # Iconos del manifest
+│   ├── manifest.webmanifest        # Manifest de la web app
+│   ├── robots.txt                  # Reglas para rastreadores
 │   └── img/
-│       ├── AitorCaricatura.jpg   # Formato clásico de fallback
-│       ├── AitorCaricatura.webp  # Formato optimizado para LCP rápido
-│       └── og-banner.jpg         # Imagen para compartir en redes (1200×630)
+│       ├── AitorCaricatura.jpg     # Fallback y datos estructurados (URL estable)
+│       └── og-banner.jpg           # Imagen para compartir en redes (1200×630)
 ├── App.tsx                     # Componente y diseño principal
 ├── constants.ts                # Catálogo de enlaces e información de herramientas
 ├── types.ts                    # Tipos de TypeScript (LinkItem, LinkCategory)
-├── index.tsx                   # Punto de entrada de React
+├── index.tsx                   # Punto de entrada del navegador (hidrata o monta)
+├── entry-server.tsx            # Entrada SSR, solo para el build (render + JSON-LD)
+├── scripts/
+│   ├── validate-catalog.mjs    # Validación del catálogo (npm run validate)
+│   └── prerender.mjs           # Postproceso del build: prerender + sitemap.xml
 ├── index.html                  # Plantilla HTML base (carga el tracker del Worker)
+├── 404.html                    # Página de error 404 (estática, noindex, con buscador que lleva a /?q=)
+├── .nvmrc                      # Versión de Node (22)
 ├── privacidad.html             # Política de privacidad (HTML estático) → /privacidad
 ├── privacidad.ts               # Solo el botón de tema de /privacidad
 ├── theme.ts                    # Lógica de tema compartida (hub + privacidad)
@@ -127,13 +140,16 @@ Edita `constants.ts` e introduce una nueva entrada en la constante `LINKS`:
   description: 'Descripción concisa de la utilidad.',
   category: 'tool', // Categorías válidas definidas en types.ts
   icon: NombreIcono, // Importado desde lucide-react
-  isExternal: true,
 }
 ```
 
 Recuerda importar el icono en la cabecera de `constants.ts` (`import { NombreIcono } from 'lucide-react'`). Las marcas (Twitter/X, GitHub, etc.) ya no existen en `lucide-react` v1, así que para esos casos usa un SVG propio.
 
-Si quieres que Google lo vea cuanto antes, actualiza también `lastmod` en `public/sitemap.xml`.
+Usa siempre la barra final en las URLs de origen (`https://sitio.app/`).
+
+**Validación del catálogo:** `npm run validate` (y el primer paso de `npm run build`) falla con un mensaje preciso si una entrada tiene: `id` repetido o con formato inválido, URL repetida, no `https` o no canónica (p. ej. sin la barra final), título vacío o repetido, categoría fuera de `LINK_CATEGORIES` (`types.ts`), campos desconocidos (como el antiguo `isExternal`) o sin icono. Una descripción repetida solo genera un aviso. No hay que tocar nada más: el HTML de la tarjeta, el JSON-LD y el sitemap se regeneran en el siguiente `npm run build`.
+
+**`lastmod` del sitemap:** `scripts/prerender.mjs` lo toma de la fecha del último commit de git que modificó los archivos de cada página (`constants.ts`, `App.tsx`, `components/`, `images/` e `index.html` para el hub; `privacidad.html` para la política). Sin git disponible usa la fecha del build. Nota: Vercel clona el repositorio con historial limitado, así que para archivos sin cambios recientes la fecha puede ser la del commit más antiguo disponible. Para forzar una fecha exacta, edita el array `PAGES` del script.
 
 ---
 

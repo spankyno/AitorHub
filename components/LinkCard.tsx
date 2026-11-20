@@ -16,7 +16,7 @@ export const LinkCard: React.FC<LinkCardProps> = ({ item }) => {
       rel="noopener noreferrer"
       // El nombre accesible se calcula del contenido (título + descripción + aviso de pestaña
       // nueva), que coincide con el texto visible (WCAG 2.5.3). El CTA decorativo va aria-hidden.
-      className="group relative flex flex-col p-6 bg-surface rounded-2xl shadow-sm border border-edge-soft transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-brand-200 dark:hover:border-brand-400/50 overflow-hidden"
+      className="group relative flex flex-col p-6 bg-surface rounded-2xl shadow-sm border border-edge-soft transition-[transform,box-shadow,border-color] duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-brand-200 dark:hover:border-brand-400/50 overflow-hidden"
     >
       <div
         aria-hidden="true"
