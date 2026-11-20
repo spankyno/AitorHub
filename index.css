@@ -1,8 +1,108 @@
+@import '@fontsource-variable/inter';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Tema claro por defecto. <html data-theme="light|dark"> lo fija un script de <head>
+     (preferencia guardada en localStorage o, si no hay, la del sistema) antes del primer pintado. */
+  :root {
+    color-scheme: light;
+    --c-page: 248 250 252;       /* slate-50  */
+    --c-surface: 255 255 255;
+    --c-ink: 30 41 59;           /* slate-800: títulos */
+    --c-body: 71 85 105;         /* slate-600: texto */
+    --c-muted: 100 116 139;      /* slate-500: secundario (≥4.5:1) */
+    --c-edge: 226 232 240;       /* slate-200 */
+    --c-edge-soft: 241 245 249;  /* slate-100 */
+    --c-control: 122 134 153;    /* borde de campos: ≥3:1 (WCAG 1.4.11) */
+    --c-accent: 37 99 235;       /* brand-600 */
+    --c-accent-hover: 30 64 175; /* brand-800 */
+    --blob-a: 219 234 254;       /* brand-100 */
+    --blob-b: 243 232 255;       /* purple-100 */
+    --blob-alpha: 0.55;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+      --c-page: 15 23 42;          /* slate-900 */
+      --c-surface: 30 41 59;       /* slate-800 */
+      --c-ink: 241 245 249;        /* slate-100 */
+      --c-body: 203 213 225;       /* slate-300 */
+      --c-muted: 148 163 184;      /* slate-400 */
+      --c-edge: 51 65 85;          /* slate-700 */
+      --c-edge-soft: 41 52 72;
+      --c-control: 100 116 139;    /* slate-500 */
+      --c-accent: 96 165 250;      /* brand-400 */
+      --c-accent-hover: 147 197 253;
+      --blob-a: 37 99 235;         /* brand-600 */
+      --blob-b: 147 51 234;        /* purple-600 */
+      --blob-alpha: 0.24;
+  }
+
+  /* Sin JavaScript (no hay data-theme) se sigue al sistema. Mantener igual que el bloque anterior. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      color-scheme: dark;
+      --c-page: 15 23 42;          /* slate-900 */
+      --c-surface: 30 41 59;       /* slate-800 */
+      --c-ink: 241 245 249;        /* slate-100 */
+      --c-body: 203 213 225;       /* slate-300 */
+      --c-muted: 148 163 184;      /* slate-400 */
+      --c-edge: 51 65 85;          /* slate-700 */
+      --c-edge-soft: 41 52 72;
+      --c-control: 100 116 139;    /* slate-500 */
+      --c-accent: 96 165 250;      /* brand-400 */
+      --c-accent-hover: 147 197 253;
+      --blob-a: 37 99 235;         /* brand-600 */
+      --blob-b: 147 51 234;        /* purple-600 */
+      --blob-alpha: 0.24;
+    }
+  }
+
+  /* El fondo del html evita destellos y pinta bien el rebote de scroll en móvil */
+  html { background-color: rgb(var(--c-page)); }
+
+  /* Foco visible y consistente en todo (teclado) */
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 2px;
+  }
+}
+
+/* Halos de fondo: degradado radial + animación solo de transform (compuesta en GPU).
+   Sin filter: blur ni mix-blend-mode, que obligan a repintar a pantalla completa. */
+.blob {
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--blob-color) / var(--blob-alpha)),
+    rgb(var(--blob-color) / 0)
+  );
+  will-change: transform;
+}
+.blob-a { --blob-color: var(--blob-a); }
+.blob-b { --blob-color: var(--blob-b); }
+
 /* Animation delay utility for blob effect */
 .animation-delay-2000 {
   animation-delay: 2s;
+}
+
+/* Página de privacidad: HTML generado desde Markdown, sin clases en los elementos */
+@layer components {
+  .legal h2 { @apply mt-10 mb-3 text-xl font-semibold text-ink; }
+  .legal p  { @apply mb-4 leading-relaxed text-body; }
+  .legal ul { @apply mb-4 list-disc space-y-1 pl-6 leading-relaxed text-body; }
+  .legal a  { @apply text-accent underline underline-offset-2 hover:text-accent-hover; }
+  .legal code { @apply rounded bg-edge-soft px-1.5 py-0.5 text-sm text-body; }
+}
+
+/* Respeta "reducir movimiento" del sistema: sin animaciones ni transiciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

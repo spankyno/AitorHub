@@ -14,7 +14,6 @@ import {
   MapPinCheckInside,
   MonitorCog,
   Locate,
-  LocateFixed,
   Clapperboard,
   SmilePlus,
   Eraser,
@@ -635,4 +634,10 @@ export const LINKS: LinkItem[] = [
 ];
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
+};
+
+export const FOOTER_LINKS = {
+  blog: 'https://aitorsanchez.pages.dev/',
+  contacto: 'https://aitorsanchez.pages.dev/contacto',
+  privacidad: '/privacidad',
 };

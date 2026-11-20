@@ -2,6 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { LINKS, SOCIAL_LINKS } from './constants';
 import { LinkCard } from './components/LinkCard';
+import { Footer } from './components/Footer';
+import { ThemeToggle } from './components/ThemeToggle';
+import heroWebp from './images/AitorCaricatura.webp';
+import type { LinkItem } from './types';
 
 // lucide-react v1 no longer ships brand icons, so the X (Twitter) logo is inlined.
 const XIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -11,55 +15,20 @@ const XIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 
-// Module-level flag: lives outside the component so it survives
-// React StrictMode's intentional unmount/remount cycle in development.
-// It resets only on a true full page reload.
-let visitLogged = false;
+// Minúsculas y sin diacríticos: "informacion" encuentra "información", "ano" encuentra "año".
+const normalize = (value: string): string =>
+  value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
+
+// Se calcula una sola vez al cargar el módulo, no en cada pulsación.
+const SEARCH_INDEX: { link: LinkItem; text: string }[] = LINKS.map((link) => ({
+  link,
+  text: normalize(`${link.title}\n${link.description}`),
+}));
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>(
     () => new URLSearchParams(window.location.search).get('q') ?? ''
   );
-
-  useEffect(() => {
-    if (visitLogged) return;
-    visitLogged = true;
-
-    // Defer to after first paint to avoid competing with render
-    const logVisit = async () => {
-      try {
-        // 1. Parámetro ?ref explícito (máxima prioridad)
-        const refParam = new URLSearchParams(window.location.search).get('ref');
-
-        // 2. Fallback a document.referrer
-        let referrer = 'Directo';
-        if (refParam) {
-          referrer = refParam.trim().slice(0, 150);
-        } else if (document.referrer) {
-          try {
-            referrer = new URL(document.referrer).hostname.replace(/^www\./, '');
-          } catch {
-            referrer = document.referrer.slice(0, 150);
-          }
-        }
-
-        const response = await fetch('/api/registrar-entrada', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ referrer }),
-        });
-
-        if (!response.ok) {
-          console.warn('No se pudo registrar la visita:', response.status);
-        }
-      } catch (error) {
-        // Non-critical: silently swallow network errors
-        console.warn('Error de red al registrar visita:', error);
-      }
-    };
-
-    logVisit();
-  }, []);
 
   // Inyecta JSON-LD ItemList para que Google entienda la lista de herramientas
   useEffect(() => {
@@ -84,46 +53,36 @@ const App: React.FC = () => {
     document.head.appendChild(script);
   }, []);
 
-  const [limit, setLimit] = useState(12);
-
-  useEffect(() => {
-    if (searchTerm) {
-      setLimit(LINKS.length);
-      return;
-    }
-    const deferAllCards = () => {
-      setLimit(LINKS.length);
-    };
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => deferAllCards());
-    } else {
-      setTimeout(deferAllCards, 150);
-    }
-  }, [searchTerm]);
-
   // Filter links based on search input
   const filteredLinks = useMemo(() => {
-    const term = searchTerm.toLowerCase().trim();
+    const term = normalize(searchTerm);
     if (!term) return LINKS;
-    return LINKS.filter(
-      link =>
-        link.title.toLowerCase().includes(term) ||
-        link.description.toLowerCase().includes(term),
-    );
+    return SEARCH_INDEX.filter(({ text }) => text.includes(term)).map(({ link }) => link);
   }, [searchTerm]);
 
-  // Limit rendering to reduce initial CPU mount/hydration block (reduces TBT)
-  const displayedLinks = useMemo(() => {
-    if (searchTerm) return filteredLinks;
-    return filteredLinks.slice(0, limit);
-  }, [filteredLinks, limit, searchTerm]);
+  const statusMessage = !searchTerm
+    ? ''
+    : filteredLinks.length === 0
+      ? 'No se encontraron resultados'
+      : `${filteredLinks.length} ${filteredLinks.length === 1 ? 'herramienta encontrada' : 'herramientas encontradas'}`;
 
   return (
-    <div className="min-h-screen pb-12">
+    <div className="relative min-h-screen pb-12">
+      <a
+        href="#contenido"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-surface focus:px-4 focus:py-2 focus:font-medium focus:text-accent focus:shadow-lg"
+      >
+        Saltar al contenido
+      </a>
+
+      <div className="absolute right-4 top-4 z-20 sm:right-6 sm:top-6">
+        <ThemeToggle />
+      </div>
+
       {/* Decorative Background Elements */}
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+      <div aria-hidden="true" className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div className="blob blob-a absolute left-1/4 top-[-2rem] -ml-8 h-[32rem] w-[32rem] animate-blob"></div>
+        <div className="blob blob-b absolute right-1/4 top-[-2rem] -mr-8 h-[32rem] w-[32rem] animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,39 +96,36 @@ const App: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="relative mb-8 group block cursor-pointer"
-            title="Visitar el Blog de Aitor"
+            aria-label="Ir al blog de Aitor (se abre en una pestaña nueva)"
           >
             <div className="absolute -inset-1 bg-gradient-to-r from-brand-400 to-purple-400 rounded-2xl opacity-70 blur transition duration-500 group-hover:opacity-100 rotate-3"></div>
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-white transform transition duration-500 group-hover:-rotate-2 group-hover:scale-[1.02]">
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-4 border-surface shadow-xl bg-surface transform transition duration-500 group-hover:-rotate-2 group-hover:scale-[1.02]">
               <picture>
-                <source srcSet="/img/AitorCaricatura.webp" type="image/webp" />
+                <source srcSet={heroWebp} type="image/webp" />
                 <img
                   src="/img/AitorCaricatura.jpg"
-                  alt="Aitor Caricatura - Ir al Blog"
+                  alt="Caricatura de Aitor"
                   width="224"
                   height="224"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = 'https://picsum.photos/400/400';
-                  }}
                 />
               </picture>
             </div>
-            <div className="absolute bottom-2 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+            <div aria-hidden="true" className="absolute bottom-2 left-0 right-0 text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
               <span className="inline-block bg-black/60 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm">
                 Ir al blog
               </span>
             </div>
           </a>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-3 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-3 tracking-tight">
             Aitor&#39;s Hub
           </h1>
 
-          <p className="max-w-2xl text-lg text-slate-600 mb-8 font-medium">
+          <p className="max-w-2xl text-lg text-body mb-8 font-medium">
             Acceso directo a mis herramientas, utilidades y artículos del blog.
           </p>
 
@@ -178,46 +134,57 @@ const App: React.FC = () => {
             href={SOCIAL_LINKS.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2 rounded-full bg-white shadow-sm border border-slate-200 text-slate-600 hover:text-blue-500 hover:border-blue-200 hover:shadow-md transition-all duration-300"
+            className="inline-flex items-center px-5 py-2 rounded-full bg-surface shadow-sm border border-edge text-body hover:text-accent-hover hover:border-brand-400 hover:shadow-md transition-all duration-300"
           >
             <XIcon className="w-5 h-5 mr-2" />
             <span className="font-medium">@Kalbo___</span>
+            <span className="sr-only"> en X (se abre en una pestaña nueva)</span>
           </a>
         </header>
 
         {/* Search / Filter Bar */}
-        <div className="max-w-md mx-auto mb-12">
+        <div role="search" className="max-w-md mx-auto mb-4">
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+              <Search className="h-5 w-5 text-muted group-focus-within:text-accent transition-colors" />
             </div>
             <input
               type="search"
-              className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-white/80 backdrop-blur-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all shadow-sm"
+              className="block w-full pl-10 pr-3 py-3 border border-control rounded-xl leading-5 bg-surface/80 text-ink backdrop-blur-sm placeholder:text-muted transition-colors shadow-sm"
               placeholder="Buscar herramienta o enlace..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Buscar herramientas"
+              name="q"
+              autoComplete="off"
+              spellCheck={false}
+              enterKeyHint="search"
             />
           </div>
         </div>
 
+        <p role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </p>
+        <div className="mb-8" />
+
         {/* Grid Layout */}
-        <main>
-          {displayedLinks.length > 0 ? (
+        <main id="contenido" tabIndex={-1} className="focus:outline-none">
+          <h2 className="sr-only">Herramientas</h2>
+          {filteredLinks.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayedLinks.map((link) => (
+              {filteredLinks.map((link) => (
                 <LinkCard key={link.id} item={link} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white/50 rounded-3xl border border-dashed border-slate-300">
-              <p className="text-slate-500 text-lg">
+            <div className="text-center py-20 bg-surface/50 rounded-3xl border border-dashed border-control">
+              <p className="text-muted text-lg">
                 No se encontraron resultados para &ldquo;{searchTerm}&rdquo;
               </p>
               <button
                 onClick={() => setSearchTerm('')}
-                className="mt-4 text-brand-600 font-medium hover:text-brand-800 underline"
+                className="mt-4 text-accent font-medium hover:text-accent-hover underline"
               >
                 Limpiar búsqueda
               </button>
@@ -225,10 +192,7 @@ const App: React.FC = () => {
           )}
         </main>
 
-        {/* Footer */}
-        <footer className="mt-20 py-8 text-center text-slate-400 text-sm">
-          <p>© {new Date().getFullYear()} Aitor Sánchez Gutiérrez. Todos los derechos reservados.</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <script>
+      /* Tema: preferencia guardada (localStorage) o la del sistema. Se ejecuta antes del primer
+         pintado para evitar destellos. Mantener sincronizado con theme.ts */
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var c = t === 'dark' ? '#0f172a' : '#f8fafc';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      })();
+    </script>
+    <title>Política de Privacidad | Aitor's Hub</title>
+    <meta name="author" content="Aitor Sánchez Gutiérrez" />
+    <meta name="description" content="Política de privacidad de Aitor's Hub: qué datos de analítica se recogen, con qué finalidad, cuánto tiempo se conservan y cómo ejercer tus derechos." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://aitorhub.vercel.app/privacidad" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="stylesheet" href="/index.css" />
+    <script type="module" src="/privacidad.ts"></script>
+  </head>
+  <body class="bg-page text-ink antialiased selection:bg-brand-100 selection:text-brand-700 dark:selection:bg-brand-500/40 dark:selection:text-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <header class="flex items-center justify-between gap-4">
+        <a href="/" class="inline-flex items-center py-1 text-sm font-medium text-accent hover:text-accent-hover">&larr; Volver a Aitor's Hub</a>
+        <div id="theme-toggle-wrap" hidden>
+          <button id="theme-toggle" type="button" aria-pressed="false" title="Cambiar a modo oscuro"
+                  class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-edge bg-surface text-body shadow-sm transition-colors hover:text-accent-hover">
+            <svg class="block h-5 w-5 dark:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <svg class="hidden h-5 w-5 dark:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <span class="sr-only">Modo oscuro</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="legal mt-8">
+        <h1 class="text-3xl font-bold tracking-tight text-ink mb-4">Política de Privacidad</h1>
+        <p><strong>Última actualización:</strong> 19/11/2026</p>
+        <h2 id="responsable-del-tratamiento">1. Responsable del tratamiento</h2>
+        <p>El responsable del tratamiento de los datos personales es:</p>
+        <p><strong>Aitor Sánchez Gutiérrez</strong><br />
+        Correo electrónico de contacto: <a href="mailto:blog.cottage627@passinbox.com">blog.cottage627@passinbox.com</a><br />
+        Sitio web: <a href="https://aitorsanchez.pages.dev/contacto" target="_blank" rel="noopener noreferrer">https://aitorsanchez.pages.dev/contacto<span class="sr-only"> (se abre en una pestaña nueva)</span></a></p>
+        <h2 id="datos-que-recogemos">2. Datos que recogemos</h2>
+        <p>Cuando visitas este sitio web, se recoge la siguiente información mediante el script de analítica privada alojado en Cloudflare Workers :</p>
+        <ul>
+        <li>Dirección IP</li>
+        <li>Navegador y sistema operativo (extraídos del User-Agent)</li>
+        <li>URL de la página visitada</li>
+        <li>Fecha y hora de la visita / última actividad</li>
+        <li>Identificador de sesión generado a partir de un hash (SHA-256 de <code>app_id + IP + User-Agent</code>)</li>
+        </ul>
+        <p>No se recogen nombres, correos electrónicos, datos de formularios ni ninguna otra información identificativa directa, salvo que el usuario la facilite voluntariamente a través de formularios de contacto u otros medios.</p>
+        <h2 id="finalidad-del-tratamiento">3. Finalidad del tratamiento</h2>
+        <p>Los datos se tratan exclusivamente con las siguientes finalidades:</p>
+        <ul>
+        <li>Elaborar estadísticas de uso del sitio web (número de visitas, páginas más vistas, navegadores, sistemas operativos y países de origen).</li>
+        <li>Detectar y prevenir abusos o usos indebidos.</li>
+        <li>Mejorar el funcionamiento y la experiencia del sitio.</li>
+        </ul>
+        <p>No se utilizan con fines publicitarios ni se venden a terceros.</p>
+        <h2 id="base-legal">4. Base legal</h2>
+        <p>El tratamiento se basa en el <strong>interés legítimo</strong> del responsable (artículo 6.1.f del RGPD) para conocer el uso de su sitio web y mejorar el servicio, siempre que no prevalezcan los derechos e intereses del interesado.</p>
+        <p>Si en el futuro se implementara un banner de cookies o se solicitara consentimiento explícito, se indicará en esta política.</p>
+        <h2 id="conservación-de-los-datos">5. Conservación de los datos</h2>
+        <p>Los datos de visitas se conservan durante el tiempo necesario para cumplir las finalidades descritas y, como máximo, <strong>24 meses</strong> desde la última actividad registrada. Transcurrido ese plazo se eliminan o se anonimizan de forma irreversible.</p>
+        <h2 id="destinatarios-y-encargados-del-tratamiento">6. Destinatarios y encargados del tratamiento</h2>
+        <p>Los datos se almacenan y procesan en la infraestructura de <strong>Cloudflare, Inc.</strong> (Workers y base de datos D1), que actúa como encargado del tratamiento.</p>
+        <p>Cloudflare cuenta con las garantías adecuadas conforme al RGPD (incluidas Cláusulas Contractuales Tipo y medidas de seguridad técnicas y organizativas).</p>
+        <p>No se ceden datos a otros terceros, salvo obligación legal.</p>
+        <h2 id="transferencias-internacionales">7. Transferencias internacionales</h2>
+        <p>Cloudflare tiene servidores en Estados Unidos y en otros países. Las transferencias se realizan con las garantías previstas en el RGPD (Cláusulas Contractuales Tipo de la Comisión Europea y demás medidas complementarias).</p>
+        <h2 id="derechos-de-los-interesados">8. Derechos de los interesados</h2>
+        <p>Puedes ejercer en cualquier momento los siguientes derechos:</p>
+        <ul>
+        <li>Acceso</li>
+        <li>Rectificación</li>
+        <li>Supresión (“derecho al olvido”)</li>
+        <li>Limitación del tratamiento</li>
+        <li>Oposición</li>
+        <li>Portabilidad</li>
+        </ul>
+        <p>Para ejercerlos, envía un correo a <a href="mailto:blog.cottage627@passinbox.com">blog.cottage627@passinbox.com</a> indicando el derecho que deseas ejercer y aportando la información necesaria para localizar tus datos (por ejemplo, la dirección IP o el periodo aproximado de la visita).</p>
+        <p>También tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">www.aepd.es<span class="sr-only"> (se abre en una pestaña nueva)</span></a>).</p>
+        <h2 id="cookies-y-tecnologías-similares">9. Cookies y tecnologías similares</h2>
+        <p>Este sitio utiliza un script de seguimiento propio que se carga desde el dominio del panel de analítica. Este script no instala cookies de terceros ni realiza seguimiento publicitario.</p>
+        <p>Si el navegador tiene activado el bloqueo de scripts o se utiliza una extensión de privacidad, el seguimiento puede no ejecutarse.</p>
+        <h2 id="seguridad">10. Seguridad</h2>
+        <p>Se aplican medidas técnicas y organizativas adecuadas para proteger los datos contra el acceso no autorizado, la pérdida o la alteración (incluyendo el uso de API keys de alta entropía, sentencias preparadas, rate limiting y cabeceras de seguridad).</p>
+        <h2 id="cambios-en-la-política">11. Cambios en la política</h2>
+        <p>Nos reservamos el derecho a modificar esta Política de Privacidad para adaptarla a cambios legislativos o de funcionamiento. La versión actualizada se publicará en esta misma página con la fecha de la última revisión.</p>
+      </main>
+
+    <footer class="mt-16 pt-8 pb-4 border-t border-edge text-center text-sm text-muted">
+      <nav aria-label="Enlaces del pie de página">
+        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 mb-4">
+          <li><a href="https://aitorsanchez.pages.dev/" target="_blank" rel="noopener noreferrer" class="inline-block py-1 text-body hover:text-accent-hover underline-offset-4 hover:underline transition-colors">Blog<span class="sr-only"> (se abre en una pestaña nueva)</span></a></li>
+          <li><a href="https://aitorsanchez.pages.dev/contacto" target="_blank" rel="noopener noreferrer" class="inline-block py-1 text-body hover:text-accent-hover underline-offset-4 hover:underline transition-colors">Contacto<span class="sr-only"> (se abre en una pestaña nueva)</span></a></li>
+          <li><a href="/privacidad" aria-current="page" class="inline-block py-1 text-body hover:text-accent-hover underline-offset-4 hover:underline transition-colors">Privacidad</a></li>
+        </ul>
+      </nav>
+      <p>Autor: Aitor Sánchez Gutiérrez. © 2026 - Todos los derechos reservados.</p>
+    </footer>
+    </div>
+  </body>
+</html>

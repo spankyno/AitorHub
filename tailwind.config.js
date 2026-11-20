@@ -1,17 +1,41 @@
 /** @type {import('tailwindcss').Config} */
+
+// Colores semánticos: sus valores (RGB) viven en index.css y cambian solos
+// con prefers-color-scheme. `<alpha-value>` permite usar bg-surface/80, etc.
+const token = (name) => `rgb(var(--c-${name}) / <alpha-value>)`;
+
 export default {
   content: [
     './index.html',
+    './privacidad.html',
     './*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
-    './api/**/*.{ts,tsx}',
+  ],
+  // El variante dark: se activa con <html data-theme="dark"> (botón manual o preferencia del
+  // sistema, resuelto por el script de <head>). Sin JavaScript (sin data-theme) sigue al sistema.
+  darkMode: [
+    'variant',
+    [
+      '@media (prefers-color-scheme: dark) { &:not([data-theme] *) }',
+      '&:is([data-theme="dark"] *)',
+    ],
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
+        page: token('page'),
+        surface: token('surface'),
+        ink: token('ink'),
+        body: token('body'),
+        muted: token('muted'),
+        edge: token('edge'),
+        'edge-soft': token('edge-soft'),
+        control: token('control'),
+        accent: token('accent'),
+        'accent-hover': token('accent-hover'),
         brand: {
           50:  '#eff6ff',
           100: '#dbeafe',
