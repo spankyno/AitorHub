@@ -1,0 +1,44 @@
+name: Comprobar enlaces
+
+# Una vez al mes (día 1, 07:00 UTC) comprueba que las URLs del catálogo responden.
+# Si alguna está caída, el workflow falla y abre una incidencia con el informe.
+# También se puede lanzar a mano desde la pestaña Actions.
+on:
+  schedule:
+    - cron: '0 7 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Comprobar las URLs del catálogo
+        id: check
+        run: npm run check-links
+
+      - name: Abrir incidencia con las URLs caídas
+        if: failure() && steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Enlaces caídos en el catálogo ($(date -u +%Y-%m))"
+          EXISTING="$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number')"
+          if [ -z "$EXISTING" ]; then
+            gh issue create --title "$TITLE" --body-file link-report.md
+          else
+            echo "Ya hay una incidencia abierta este mes (#$EXISTING)."
+          fi
