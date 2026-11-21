@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search } from 'lucide-react';
-import { LINKS, SOCIAL_LINKS } from './constants';
+import { CATEGORIES_IN_USE, CATEGORY_LABELS, LINKS, SOCIAL_LINKS } from './constants';
 import { LinkCard } from './components/LinkCard';
 import { Footer } from './components/Footer';
+import { CategoryFilter, type CategoryFilterValue } from './components/CategoryFilter';
 import { ThemeToggle } from './components/ThemeToggle';
 import heroWebp from './images/AitorCaricatura.webp';
-import type { LinkItem } from './types';
+import type { LinkCategory, LinkItem } from './types';
 
 // lucide-react v1 no longer ships brand icons, so the X (Twitter) logo is inlined.
 const XIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -27,6 +28,7 @@ const SEARCH_INDEX: { link: LinkItem; text: string }[] = LINKS.map((link) => ({
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [category, setCategory] = useState<CategoryFilterValue>('all');
 
   // ?q= (la SearchAction de los datos estructurados). Se lee tras montar, no en el estado inicial,
   // para que el HTML prerenderizado (sin window) y la hidratación coincidan.
@@ -35,18 +37,36 @@ const App: React.FC = () => {
     if (q) setSearchTerm(q);
   }, []);
 
-  // Filter links based on search input
-  const filteredLinks = useMemo(() => {
+  // Resultados de la búsqueda por texto; el filtro de categoría se aplica encima.
+  const searchMatches = useMemo(() => {
     const term = normalize(searchTerm);
     if (!term) return LINKS;
     return SEARCH_INDEX.filter(({ text }) => text.includes(term)).map(({ link }) => link);
   }, [searchTerm]);
 
-  const statusMessage = !searchTerm
-    ? ''
-    : filteredLinks.length === 0
-      ? 'No se encontraron resultados'
-      : `${filteredLinks.length} ${filteredLinks.length === 1 ? 'herramienta encontrada' : 'herramientas encontradas'}`;
+  // Herramientas por categoría dentro de la búsqueda actual (contadores de los chips).
+  const counts = useMemo(() => {
+    const result: Partial<Record<LinkCategory, number>> = {};
+    for (const link of searchMatches) result[link.category] = (result[link.category] ?? 0) + 1;
+    return result;
+  }, [searchMatches]);
+
+  const filteredLinks = useMemo(
+    () => (category === 'all' ? searchMatches : searchMatches.filter((link) => link.category === category)),
+    [searchMatches, category]
+  );
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setCategory('all');
+  };
+
+  const statusMessage =
+    !searchTerm && category === 'all'
+      ? ''
+      : filteredLinks.length === 0
+        ? 'No se encontraron resultados'
+        : `${filteredLinks.length} ${filteredLinks.length === 1 ? 'herramienta encontrada' : 'herramientas encontradas'}`;
 
   return (
     <div className="relative min-h-screen pb-12">
@@ -125,30 +145,40 @@ const App: React.FC = () => {
         </header>
 
         {/* Search / Filter Bar */}
-        <div role="search" className="max-w-md mx-auto mb-4">
-          <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-              <Search className="h-5 w-5 text-muted group-focus-within:text-accent transition-colors" />
+        {/* Un solo landmark de búsqueda: campo de texto + filtros de categoría */}
+        <div role="search" className="mb-8">
+          <div className="mx-auto mb-4 max-w-md">
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                <Search className="h-5 w-5 text-muted group-focus-within:text-accent transition-colors" />
+              </div>
+              <input
+                type="search"
+                className="block w-full pl-10 pr-3 py-3 border border-control rounded-xl leading-5 bg-surface/80 text-ink backdrop-blur-sm placeholder:text-muted transition-colors shadow-sm"
+                placeholder="Buscar herramienta o enlace..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Buscar herramientas"
+                name="q"
+                autoComplete="off"
+                spellCheck={false}
+                enterKeyHint="search"
+              />
             </div>
-            <input
-              type="search"
-              className="block w-full pl-10 pr-3 py-3 border border-control rounded-xl leading-5 bg-surface/80 text-ink backdrop-blur-sm placeholder:text-muted transition-colors shadow-sm"
-              placeholder="Buscar herramienta o enlace..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              aria-label="Buscar herramientas"
-              name="q"
-              autoComplete="off"
-              spellCheck={false}
-              enterKeyHint="search"
-            />
           </div>
+
+          <CategoryFilter
+            categories={CATEGORIES_IN_USE}
+            counts={counts}
+            total={searchMatches.length}
+            value={category}
+            onChange={setCategory}
+          />
         </div>
 
         <p role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </p>
-        <div className="mb-8" />
 
         {/* Grid Layout */}
         <main id="contenido" tabIndex={-1} className="focus:outline-none">
@@ -162,13 +192,16 @@ const App: React.FC = () => {
           ) : (
             <div className="text-center py-20 bg-surface/50 rounded-3xl border border-dashed border-control">
               <p className="text-muted text-lg">
-                No se encontraron resultados para &ldquo;{searchTerm}&rdquo;
+                No se encontraron resultados
+                {searchTerm && <> para &ldquo;{searchTerm}&rdquo;</>}
+                {category !== 'all' && <> en {CATEGORY_LABELS[category]}</>}
               </p>
               <button
-                onClick={() => setSearchTerm('')}
+                type="button"
+                onClick={clearFilters}
                 className="mt-4 text-accent font-medium hover:text-accent-hover underline"
               >
-                Limpiar búsqueda
+                Limpiar filtros
               </button>
             </div>
           )}

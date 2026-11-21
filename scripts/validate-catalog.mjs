@@ -32,7 +32,7 @@ const checkUrl = (raw, { allowRelative = false } = {}) => {
 };
 
 try {
-  const { LINKS, SOCIAL_LINKS, FOOTER_LINKS } = await server.ssrLoadModule('/constants.ts');
+  const { LINKS, SOCIAL_LINKS, FOOTER_LINKS, CATEGORY_LABELS } = await server.ssrLoadModule('/constants.ts');
   const { LINK_CATEGORIES } = await server.ssrLoadModule('/types.ts');
 
   if (!Array.isArray(LINKS) || LINKS.length === 0) {
@@ -80,6 +80,27 @@ try {
       track('title', link.title, errors);
       track('description', link.description, warnings);
     });
+  }
+
+  // Etiquetas de categoría (chips) y categorías sin ninguna herramienta
+  if (Array.isArray(LINKS)) {
+    const seenLabels = new Map();
+    for (const category of LINK_CATEGORIES) {
+      const label = CATEGORY_LABELS?.[category];
+      if (typeof label !== 'string' || !label.trim()) {
+        errors.push(`CATEGORY_LABELS: falta la etiqueta de la categoría «${category}»`);
+      } else if (seenLabels.has(label.trim().toLowerCase())) {
+        errors.push(`CATEGORY_LABELS: «${label}» está repetida en «${seenLabels.get(label.trim().toLowerCase())}» y «${category}»`);
+      } else {
+        seenLabels.set(label.trim().toLowerCase(), category);
+      }
+      if (!LINKS.some((link) => link?.category === category)) {
+        warnings.push(`categoría «${category}» sin ninguna herramienta: quítala de LINK_CATEGORIES (types.ts) y de CATEGORY_LABELS`);
+      }
+    }
+    for (const key of Object.keys(CATEGORY_LABELS ?? {})) {
+      if (!LINK_CATEGORIES.includes(key)) errors.push(`CATEGORY_LABELS: «${key}» no está en LINK_CATEGORIES (types.ts)`);
+    }
   }
 
   for (const [name, group, allowRelative] of [

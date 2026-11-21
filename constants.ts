@@ -32,7 +32,24 @@ import {
   PencilRuler,
   SixteenthNotes
 } from 'lucide-react';
-import { LinkItem } from './types';
+import { LINK_CATEGORIES, type LinkCategory, type LinkItem } from './types';
+
+/** Nombre visible de cada categoría (chips de filtro). TypeScript obliga a tener una por categoría. */
+export const CATEGORY_LABELS: Record<LinkCategory, string> = {
+  blog: 'Blog',
+  tool: 'Herramientas',
+  utility: 'Utilidades',
+  media: 'Audio e imagen',
+  navigation: 'Mapas y GPS',
+  connectivity: 'Conectividad',
+  multimedia: 'Multimedia',
+  emoji: 'Emojis',
+  files: 'Archivos',
+  game: 'Ocio',
+  development: 'Desarrollo',
+  security: 'Seguridad',
+  photography: 'Fotografía',
+};
 
 // To add a new link, simply add an object to this array.
 // Icons are imported from lucide-react.
@@ -567,6 +584,15 @@ export const LINKS: LinkItem[] = [
     icon: MapPin,
   }
 ];
+/** Categorías con al menos una herramienta, de más a menos herramientas: es el orden de los chips. */
+export const CATEGORIES_IN_USE: LinkCategory[] = LINK_CATEGORIES.map((category) => ({
+  category,
+  count: LINKS.filter((link) => link.category === category).length,
+}))
+  .filter(({ count }) => count > 0)
+  .sort((a, b) => b.count - a.count) // estable: a igualdad se mantiene el orden de LINK_CATEGORIES
+  .map(({ category }) => category);
+
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/Kalbo___',
 };

@@ -40,6 +40,9 @@ La aplicación ha sido optimizada para conseguir el máximo rendimiento en produ
 
 - **React 19** & **TypeScript** (`strict`) — Interfaz reactiva y tipada de forma estricta; `npm run typecheck` se ejecuta también antes de cada `build`.
 - **Vite 6** — Empaquetador y servidor de desarrollo. Sin configuración de chunks a medida: los valores por defecto bastan.
+- **Chips de categoría** — Filtro por categoría junto al buscador (14 chips: «Todas» + las categorías con herramientas, de más a menos). Se combina con la búsqueda por texto: los contadores se recalculan con cada búsqueda y las categorías sin resultados se deshabilitan. Accesible: `aria-pressed`, aviso de resultados para lectores de pantalla y todo dentro de la región `search`.
+- **CI y comprobación de enlaces** — `.github/workflows/ci.yml` ejecuta `npm run build` (validación + tipos + build + prerender) en cada push. `.github/workflows/link-check.yml` comprueba el día 1 de cada mes que las URLs del catálogo responden; si alguna está caída, falla y abre una incidencia con el informe. También se lanza a mano desde la pestaña *Actions*.
+- **Precarga de la fuente** — `prerender.mjs` añade `<link rel="preload">` del subset `latin` de Inter (con su hash) en las tres páginas HTML, para que la descarga empiece sin esperar al CSS.
 - **Página 404 propia** — `404.html` se sirve automáticamente en Vercel para cualquier ruta inexistente (con estado 404). Es estática, `noindex`, respeta el tema guardado y trae un buscador que funciona sin JavaScript. `npm run preview` la emula en local.
 - **Prerenderizado (SSG)** — `npm run build` genera `dist/index.html` con las 65 tarjetas ya dentro del HTML y el JSON-LD `ItemList` incluido (buscadores y previsualizadores no necesitan ejecutar JavaScript); en el navegador React solo *hidrata*. Funciona sin `react-router` ni librerías extra: `entry-server.tsx` + un build SSR de Vite + `scripts/prerender.mjs`. El catálogo (`constants.ts`) es la fuente única del HTML, del JSON-LD y del sitemap.
 - **Tailwind CSS 3** + **PostCSS** + **Autoprefixer** — Estilos CSS compilados y purgados nativamente en el build en lugar de usar librerías en caliente (CDN), eliminando el bloqueo del hilo principal.
@@ -76,7 +79,7 @@ No hay variables de entorno ni backend propio: el proyecto es 100 % estático.
 
 Búsqueda: ignora mayúsculas y tildes ("informacion" encuentra "información").
 
-Scripts: `npm run dev` · `npm run validate` · `npm run typecheck` · `npm run build` · `npm run preview`.
+Scripts: `npm run dev` · `npm run validate` · `npm run check-links` · `npm run typecheck` · `npm run build` · `npm run preview`.
 
 **Versión de Node:** 22 (`engines` en `package.json` y `.nvmrc`; `nvm use` la selecciona). Vercel lee `engines` y usa Node 22.x.
 
@@ -90,6 +93,7 @@ Scripts: `npm run dev` · `npm run validate` · `npm run typecheck` · `npm run 
 AitorHub/
 ├── components/
 │   ├── Footer.tsx              # Pie de página (Blog, Contacto, Privacidad, copyright)
+│   ├── CategoryFilter.tsx      # Chips de filtro por categoría
 │   ├── ThemeToggle.tsx         # Botón de modo claro/oscuro
 │   └── LinkCard.tsx            # Componente de tarjeta de herramienta
 ├── public/
@@ -100,7 +104,7 @@ AitorHub/
 │   ├── robots.txt                  # Reglas para rastreadores
 │   └── img/
 │       ├── AitorCaricatura.jpg     # Fallback y datos estructurados (URL estable)
-│       └── og-banner.jpg           # Imagen para compartir en redes (1200×630)
+│       └── og-banner.jpg           # Imagen para compartir en redes (1200×630, ~97 KB)
 ├── App.tsx                     # Componente y diseño principal
 ├── constants.ts                # Catálogo de enlaces e información de herramientas
 ├── types.ts                    # Tipos de TypeScript (LinkItem, LinkCategory)
@@ -108,9 +112,11 @@ AitorHub/
 ├── entry-server.tsx            # Entrada SSR, solo para el build (render + JSON-LD)
 ├── scripts/
 │   ├── validate-catalog.mjs    # Validación del catálogo (npm run validate)
+│   ├── check-links.mjs         # Comprobación de URLs (npm run check-links)
 │   └── prerender.mjs           # Postproceso del build: prerender + sitemap.xml
 ├── index.html                  # Plantilla HTML base (carga el tracker del Worker)
 ├── 404.html                    # Página de error 404 (estática, noindex, con buscador que lleva a /?q=)
+├── .github/workflows/          # CI (ci.yml) y comprobación mensual de enlaces (link-check.yml)
 ├── .nvmrc                      # Versión de Node (22)
 ├── privacidad.html             # Política de privacidad (HTML estático) → /privacidad
 ├── privacidad.ts               # Solo el botón de tema de /privacidad
@@ -138,7 +144,7 @@ Edita `constants.ts` e introduce una nueva entrada en la constante `LINKS`:
   title: 'Título de la Herramienta',
   url: 'https://mi-aplicacion.vercel.app/',
   description: 'Descripción concisa de la utilidad.',
-  category: 'tool', // Categorías válidas definidas en types.ts
+  category: 'tool', // Una de LINK_CATEGORIES (types.ts); su nombre visible está en CATEGORY_LABELS (constants.ts)
   icon: NombreIcono, // Importado desde lucide-react
 }
 ```
@@ -147,7 +153,11 @@ Recuerda importar el icono en la cabecera de `constants.ts` (`import { NombreIco
 
 Usa siempre la barra final en las URLs de origen (`https://sitio.app/`).
 
-**Validación del catálogo:** `npm run validate` (y el primer paso de `npm run build`) falla con un mensaje preciso si una entrada tiene: `id` repetido o con formato inválido, URL repetida, no `https` o no canónica (p. ej. sin la barra final), título vacío o repetido, categoría fuera de `LINK_CATEGORIES` (`types.ts`), campos desconocidos (como el antiguo `isExternal`) o sin icono. Una descripción repetida solo genera un aviso. No hay que tocar nada más: el HTML de la tarjeta, el JSON-LD y el sitemap se regeneran en el siguiente `npm run build`.
+**Validación del catálogo:** `npm run validate` (y el primer paso de `npm run build`) falla con un mensaje preciso si una entrada tiene: `id` repetido o con formato inválido, URL repetida, no `https` o no canónica (p. ej. sin la barra final), título vacío o repetido, categoría fuera de `LINK_CATEGORIES` (`types.ts`), campos desconocidos (como el antiguo `isExternal`) o sin icono. Una descripción repetida solo genera un aviso. También comprueba que cada categoría tiene etiqueta (`CATEGORY_LABELS`, sin repetir) y avisa si una categoría de `LINK_CATEGORIES` no tiene ninguna herramienta.
+
+**Categorías:** para crear una nueva, añádela a `LINK_CATEGORIES` (`types.ts`) y su nombre visible a `CATEGORY_LABELS` (`constants.ts`; TypeScript te obliga). Su chip aparece solo en cuanto tenga una herramienta.
+
+**Comprobación de enlaces:** `npm run check-links` hace una petición (HEAD, y GET si el servidor no la admite) a cada URL del catálogo y al blog/contacto del pie. Falla con caídas (error de red, timeout, 5xx, 404…); solo avisa con 401/403/429 (muchos hosts bloquean peticiones automáticas) y con redirecciones a otro dominio. No detecta páginas «aparcadas» que devuelvan 200. Con fallos escribe `link-report.md`. Nota: GitHub desactiva los workflows programados tras 60 días sin actividad en el repositorio. No hay que tocar nada más: el HTML de la tarjeta, el JSON-LD y el sitemap se regeneran en el siguiente `npm run build`.
 
 **`lastmod` del sitemap:** `scripts/prerender.mjs` lo toma de la fecha del último commit de git que modificó los archivos de cada página (`constants.ts`, `App.tsx`, `components/`, `images/` e `index.html` para el hub; `privacidad.html` para la política). Sin git disponible usa la fecha del build. Nota: Vercel clona el repositorio con historial limitado, así que para archivos sin cambios recientes la fecha puede ser la del commit más antiguo disponible. Para forzar una fecha exacta, edita el array `PAGES` del script.
 
@@ -159,7 +169,7 @@ La única analítica es el script propio alojado en Cloudflare Workers (`tracker
 
 **Preferencia de tema:** el botón guarda `light`/`dark` en `localStorage` del propio navegador. No es un dato personal ni se envía a ningún sitio, pero conviene que la política lo mencione (apartado 9, "Cookies y tecnologías similares").
 
-**Imágenes:** las que se importan desde el código van en `images/` (hash en el nombre, caché de 1 año). Las que necesitan una URL estable (`og-banner.jpg`, la imagen de los datos estructurados) van en `public/img/`.
+**Imágenes:** las que se importan desde el código van en `images/` (hash en el nombre, caché de 1 año). Las que necesitan una URL estable (`og-banner.jpg`, la imagen de los datos estructurados) van en `public/img/`. Si sustituyes `og-banner.jpg`, optimízala (objetivo ≤ 100 KB; está comprimida con mozjpeg a calidad 68 mediante `sharp`, sin diferencias visibles a 1200×630).
 
 La política de privacidad vive en `privacidad.html` (se sirve en `/privacidad`). **Si cambias qué datos recoge el Worker, su retención o sus encargados, actualiza ese archivo y su fecha de "Última actualización".**
 

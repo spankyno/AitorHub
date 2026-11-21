@@ -33,6 +33,19 @@ const lastmod = (sources) => {
   return new Date().toISOString().slice(0, 10);
 };
 
+// ---- 0. Precarga de la fuente Inter (subset latin: cubre el español) ----
+// El nombre del archivo lleva un hash que solo se conoce tras el build, por eso se inyecta aquí.
+// `crossorigin` es obligatorio en las fuentes aunque sean del mismo origen; sin él se descargaría dos veces.
+const fontFile = (await fs.readdir(path.join(dist, 'assets'))).find((f) => /^inter-latin-wght-normal-.+\.woff2$/.test(f));
+if (!fontFile) console.warn('⚠  No se encontró inter-latin-wght-normal-*.woff2 en dist/assets: se omite la precarga de la fuente');
+const addFontPreload = (html) =>
+  fontFile
+    ? html.replace(
+        /<script type="module"|<link rel="stylesheet"/,
+        (first) => `<link rel="preload" href="/assets/${fontFile}" as="font" type="font/woff2" crossorigin />\n    ${first}`
+      )
+    : html;
+
 // ---- 1. Prerender del hub ----
 const entry = ['entry-server.js', 'entry-server.mjs'].map((f) => path.join(ssrDir, f)).find(existsSync);
 if (!entry) throw new Error('No se encontró el bundle SSR en .ssr/. Ejecuta antes `vite build --ssr entry-server.tsx --outDir .ssr`.');
@@ -48,7 +61,11 @@ const jsonLd = JSON.stringify(itemListJsonLd()).replace(/</g, '\\u003c'); // evi
 html = html
   .replace(EMPTY_ROOT, `<div id="root">${app}</div>`)
   .replace('</head>', `    <script type="application/ld+json">${jsonLd}</script>\n  </head>`);
-await fs.writeFile(htmlPath, html);
+await fs.writeFile(htmlPath, addFontPreload(html));
+for (const page of ['privacidad.html', '404.html']) {
+  const file = path.join(dist, page);
+  await fs.writeFile(file, addFontPreload(await fs.readFile(file, 'utf8')));
+}
 
 // ---- 2. Sitemap con lastmod real ----
 const urls = PAGES.map(
@@ -68,4 +85,4 @@ await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap);
 
 await fs.rm(ssrDir, { recursive: true, force: true });
 const cards = (app.match(/group relative flex flex-col p-6/g) ?? []).length;
-console.log(`prerender: index.html con ${(app.length / 1024).toFixed(1)} KB de HTML de la app (${cards} tarjetas), JSON-LD ItemList y sitemap.xml`);
+console.log(`prerender: index.html con ${(app.length / 1024).toFixed(1)} KB de HTML de la app (${cards} tarjetas), JSON-LD ItemList, sitemap.xml y precarga de la fuente ${fontFile ?? '(omitida)'}`);
