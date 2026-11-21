@@ -44,3 +44,9 @@ Thumbs.db
 .eslintcache
 .stylelintcache
 coverage/
+
+# Salida temporal del build SSR
+.ssr/
+
+# Informe de enlaces caídos (lo genera npm run check-links)
+link-report.md
