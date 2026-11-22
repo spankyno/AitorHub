@@ -1,0 +1,34 @@
+name: CI
+
+# Compila el proyecto en cada push: validación del catálogo, tipos estrictos, build y prerender.
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # el sitemap toma el lastmod del historial de git
+          persist-credentials: false # el token no queda en .git/config
+
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # --ignore-scripts: ninguna dependencia ejecuta código al instalarse (esbuild funciona sin su postinstall)
+      - run: npm ci --ignore-scripts
+
+      - run: npm run build
