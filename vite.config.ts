@@ -31,7 +31,7 @@ const vercelLikeRouting = (): Plugin => {
           return next();
         }
         const file = path.join(outDir, pathname);
-        if (pathname === '/' || !file.startsWith(outDir) || existsSync(file) || !existsSync(notFoundPage)) {
+        if (pathname === '/' || !file.startsWith(outDir + path.sep) || existsSync(file) || !existsSync(notFoundPage)) {
           return next();
         }
         res.statusCode = 404;

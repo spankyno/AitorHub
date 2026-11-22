@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { loadAnalytics } from './analytics';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -21,3 +22,5 @@ if (rootElement.hasChildNodes()) {
 } else {
   ReactDOM.createRoot(rootElement).render(app);
 }
+
+loadAnalytics();

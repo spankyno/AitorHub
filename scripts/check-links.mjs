@@ -40,7 +40,7 @@ export const checkUrl = async (url, { timeoutMs = 20_000, retries = 2, retryDela
       if (status >= 200 && status < 300) {
         const moved = new URL(response.url).host !== new URL(url).host;
         return moved
-          ? { url, level: 'warn', status, note: `redirige a otro dominio: ${response.url}` }
+          ? { url, level: 'warn', status, note: `redirige a otro dominio: ${new URL(response.url).host}` }
           : { url, level: 'ok', status, note: '' };
       }
       if (BLOCKED_STATUSES.has(status)) {
@@ -105,8 +105,14 @@ const main = async () => {
   for (const r of fails) console.error(`✗  ${r.name} — ${r.url} — ${r.note}`);
   console.log(`\n${summary}`);
 
+  // El detalle puede venir de un servidor externo: se neutraliza antes de ponerlo en una tabla Markdown (informe/incidencia).
+  const cell = (text) =>
+    String(text)
+      .replace(/[\r\n]+/g, ' ')
+      .replace(/[<>`|\\]/g, (c) => `&#${c.charCodeAt(0)};`)
+      .slice(0, 200);
   const table = (rows) =>
-    ['| Herramienta | URL | Detalle |', '|---|---|---|', ...rows.map((r) => `| ${r.name} | ${r.url} | ${r.note} |`)].join('\n');
+    ['| Herramienta | URL | Detalle |', '|---|---|---|', ...rows.map((r) => `| ${cell(r.name)} | ${cell(r.url)} | ${cell(r.note)} |`)].join('\n');
   const report = [
     `## Comprobación de enlaces (${new Date().toISOString().slice(0, 10)})`,
     '',

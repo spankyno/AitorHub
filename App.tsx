@@ -34,7 +34,7 @@ const App: React.FC = () => {
   // para que el HTML prerenderizado (sin window) y la hidratación coincidan.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get('q');
-    if (q) setSearchTerm(q);
+    if (q) setSearchTerm(q.slice(0, 100));
   }, []);
 
   // Resultados de la búsqueda por texto; el filtro de categoría se aplica encima.
@@ -162,6 +162,7 @@ const App: React.FC = () => {
                 name="q"
                 autoComplete="off"
                 spellCheck={false}
+              maxLength={100}
                 enterKeyHint="search"
               />
             </div>

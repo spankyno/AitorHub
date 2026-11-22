@@ -59,8 +59,9 @@ if (!html.includes(EMPTY_ROOT)) throw new Error('index.html no contiene <div id=
 const app = render();
 const jsonLd = JSON.stringify(itemListJsonLd()).replace(/</g, '\\u003c'); // evita cerrar el <script> por accidente
 html = html
-  .replace(EMPTY_ROOT, `<div id="root">${app}</div>`)
-  .replace('</head>', `    <script type="application/ld+json">${jsonLd}</script>\n  </head>`);
+  // Funciones (no cadenas) como reemplazo: así un «$&» o «$1» en el texto del catálogo no se interpreta como patrón.
+  .replace(EMPTY_ROOT, () => `<div id="root">${app}</div>`)
+  .replace('</head>', () => `    <script type="application/ld+json">${jsonLd}</script>\n  </head>`);
 await fs.writeFile(htmlPath, addFontPreload(html));
 for (const page of ['privacidad.html', '404.html']) {
   const file = path.join(dist, page);

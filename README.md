@@ -98,6 +98,7 @@ AitorHub/
 │   └── LinkCard.tsx            # Componente de tarjeta de herramienta
 ├── public/
 │   ├── favicon.ico / favicon.svg   # Favicons (el SVG está optimizado con SVGO)
+│   ├── theme-init.js               # Aplica el tema antes del primer pintado (archivo propio: la CSP no admite scripts en línea)
 │   ├── apple-touch-icon.png        # Icono para iOS (180×180)
 │   ├── icon-192.png, icon-512.png, icon-maskable-512.png  # Iconos del manifest
 │   ├── manifest.webmanifest        # Manifest de la web app
@@ -114,9 +115,10 @@ AitorHub/
 │   ├── validate-catalog.mjs    # Validación del catálogo (npm run validate)
 │   ├── check-links.mjs         # Comprobación de URLs (npm run check-links)
 │   └── prerender.mjs           # Postproceso del build: prerender + sitemap.xml
-├── index.html                  # Plantilla HTML base (carga el tracker del Worker)
+├── analytics.ts                # Carga del tracker del Worker (solo en producción)
+├── index.html                  # Plantilla HTML base
 ├── 404.html                    # Página de error 404 (estática, noindex, con buscador que lleva a /?q=)
-├── .github/workflows/          # CI (ci.yml) y comprobación mensual de enlaces (link-check.yml)
+├── .github/                    # workflows (CI y comprobación mensual de enlaces) y dependabot.yml
 ├── .nvmrc                      # Versión de Node (22)
 ├── privacidad.html             # Política de privacidad (HTML estático) → /privacidad
 ├── privacidad.ts               # Solo el botón de tema de /privacidad
@@ -165,13 +167,33 @@ Usa siempre la barra final en las URLs de origen (`https://sitio.app/`).
 
 ## Analítica y privacidad
 
-La única analítica es el script propio alojado en Cloudflare Workers (`tracker.js`, cargado en `index.html`). No hay Google Analytics, cookies de terceros ni base de datos propia en el repositorio.
+La única analítica es el script propio alojado en Cloudflare Workers (`tracker.js`, cargado desde `analytics.ts`). No hay Google Analytics, cookies de terceros ni base de datos propia en el repositorio.
 
 **Preferencia de tema:** el botón guarda `light`/`dark` en `localStorage` del propio navegador. No es un dato personal ni se envía a ningún sitio, pero conviene que la política lo mencione (apartado 9, "Cookies y tecnologías similares").
 
 **Imágenes:** las que se importan desde el código van en `images/` (hash en el nombre, caché de 1 año). Las que necesitan una URL estable (`og-banner.jpg`, la imagen de los datos estructurados) van en `public/img/`. Si sustituyes `og-banner.jpg`, optimízala (objetivo ≤ 100 KB; está comprimida con mozjpeg a calidad 68 mediante `sharp`, sin diferencias visibles a 1200×630).
 
 La política de privacidad vive en `privacidad.html` (se sirve en `/privacidad`). **Si cambias qué datos recoge el Worker, su retención o sus encargados, actualiza ese archivo y su fecha de "Última actualización".**
+
+---
+
+## Seguridad
+
+**Superficie:** sitio 100 % estático (sin backend, sin APIs propias ni base de datos en este repositorio). La única pieza dinámica es el Worker de analítica, que vive fuera del repo.
+
+**Cabeceras (`vercel.json`):** CSP estricta (`default-src 'self'`, sin `unsafe-inline` ni `unsafe-eval`; solo se admite el origen del Worker para script, conexión e imagen), `frame-ancestors 'none'`, `form-action 'self'`, `base-uri 'none'`, HSTS, COOP, `nosniff`, `X-Frame-Options`, `Referrer-Policy` y `Permissions-Policy`. Por eso el HTML no tiene scripts ni estilos en línea: el tema se aplica con `public/theme-init.js` y el tracker se carga desde `analytics.ts`.
+
+> **Si añades un recurso externo** (otra fuente, un script, imágenes remotas, un iframe, otro endpoint) tienes que añadir su origen a la CSP de `vercel.json`; si no, el navegador lo bloqueará y verás el motivo en la consola.
+
+**Cadena de suministro:** `dependabot.yml` propone actualizaciones semanales (npm y acciones). El CI instala con `npm ci --ignore-scripts`, fija las acciones por commit (el comentario indica la versión), usa permisos mínimos y no deja el token en `.git/config`. Ejecuta `npm audit` de vez en cuando.
+
+**Entradas no confiables:** el catálogo se valida en el build (solo `https`, forma canónica); `?q=` y el buscador se renderizan siempre escapados por React y están limitados a 100 caracteres; el tema guardado solo admite `light`/`dark`.
+
+**Fuera del repositorio (comprueba tú):**
+- Worker de analítica: que el panel esté detrás de autenticación (p. ej. Cloudflare Access), que el endpoint de recogida valide el cuerpo, limite su tamaño y aplique *rate limiting*, y que las consultas a D1 sean parametrizadas. La clave `data-key` es pública por diseño: no protege nada por sí sola.
+- Vercel: protección de despliegues de *preview*, Firewall / límites de uso y alertas de gasto, y que no queden variables de entorno de Neon.
+- Cuentas: 2FA en GitHub, Vercel y Cloudflare; protección de la rama principal y *secret scanning* en el repositorio.
+- Tras desplegar: `curl -sI https://aitorhub.vercel.app/ | grep -iE "content-security|strict-transport|x-frame|cross-origin"` y la consola del navegador sin errores de CSP; el panel debe seguir registrando visitas.
 
 ---
 
