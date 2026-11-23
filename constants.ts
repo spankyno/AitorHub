@@ -38,17 +38,12 @@ import { LINK_CATEGORIES, type LinkCategory, type LinkItem } from './types';
 export const CATEGORY_LABELS: Record<LinkCategory, string> = {
   blog: 'Blog',
   tool: 'Herramientas',
-  utility: 'Utilidades',
-  media: 'Audio e imagen',
-  navigation: 'Mapas y GPS',
-  connectivity: 'Conectividad',
-  multimedia: 'Multimedia',
-  emoji: 'Emojis',
-  files: 'Archivos',
-  game: 'Ocio',
-  development: 'Desarrollo',
+  utility: 'Utilidades',  
+  navigation: 'Mapas y GPS',  
+  multimedia: 'Multimedia',  
+  game: 'Ocio',  
   security: 'Seguridad',
-  photography: 'Fotografía',
+  office: 'Office',  
 };
 
 // To add a new link, simply add an object to this array.
@@ -67,7 +62,7 @@ export const LINKS: LinkItem[] = [
     title: 'Excel Merger',
     url: 'https://kalboexcelmerger.netlify.app/',
     description: 'Herramienta para fusionar múltiples listas de Excel en un único archivo.',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -76,7 +71,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://excel-lists-compare.vercel.app/',
     description:
       'Herramienta para fusionar múltiples listas de Excel en un único archivo, usando columna maestra.',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -85,7 +80,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://formatear-excel.kbo1.workers.dev/',
     description:
       'Herramienta online para formatear libros de Excel y CSV con una presentación profesional',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -94,7 +89,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://excel-lists-process.pages.dev/',
     description:
       'Herramienta para consolidación con suma y comparación en paralelo de listas de Excel',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -110,7 +105,7 @@ export const LINKS: LinkItem[] = [
     title: "Excel's Sheets Password Remover",
     url: 'https://excel-sheet-password-remover.vercel.app/',
     description: 'Elimina las contraseñas de bloqueo de las hojas Excel.',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -118,7 +113,7 @@ export const LINKS: LinkItem[] = [
     title: 'Excel Text Generaitor',
     url: 'https://excel-text-generaitor.vercel.app/',
     description: 'Genera cadenas de texto iterativas y personalizadas.',
-    category: 'tool',
+    category: 'office',
     icon: FileSpreadsheet,
   },
   {
@@ -143,7 +138,7 @@ export const LINKS: LinkItem[] = [
     title: 'Visor PK Carreteras',
     url: 'https://visorpkaitor.netlify.app/',
     description: 'Localiza puntos kilométricos exactos en carreteras.',
-    category: 'tool',
+    category: 'navigation',
     icon: MapPin,
   },
   {
@@ -151,7 +146,7 @@ export const LINKS: LinkItem[] = [
     title: 'Visor de fotos georeferenciadas',
     url: 'https://fotomap-cfp.pages.dev/',
     description: 'Geolocaliza tus fotos en mapas interactivos.',
-    category: 'tool',
+    category: 'navigation',
     icon: MapPin,
   },
   {
@@ -159,7 +154,7 @@ export const LINKS: LinkItem[] = [
     title: 'Grabadora Audio PC',
     url: 'https://grabadoraaudiopc.netlify.app/',
     description: 'Graba audio directamente desde tu navegador sin instalar nada.',
-    category: 'media',
+    category: 'multimedia',
     icon: Mic,
   },
   {
@@ -175,7 +170,7 @@ export const LINKS: LinkItem[] = [
     title: '+ 60 Herramientas para PDF',
     url: 'https://pdfeditaitor.netlify.app/',
     description: 'Todo tipo de herramientas para archivos PDF.',
-    category: 'utility',
+    category: 'office',
     icon: FileText,
   },
   {
@@ -207,7 +202,7 @@ export const LINKS: LinkItem[] = [
     title: 'Convierte Audio a Texto',
     url: 'https://audioa-texto.vercel.app/',
     description: 'Transcribe grabaciones de voz a texto editable automáticamente.',
-    category: 'media',
+    category: 'multimedia',
     icon: FileAudio,
   },
   {
@@ -231,7 +226,7 @@ export const LINKS: LinkItem[] = [
     title: 'GaleriAitor',
     url: 'https://galeriaitor.vercel.app/',
     description: 'Galería de imágenes para visualización de activos.',
-    category: 'media',
+    category: 'multimedia',
     icon: ImageIcon,
   },
   {
@@ -239,7 +234,7 @@ export const LINKS: LinkItem[] = [
     title: 'Imaginaitor',
     url: 'https://imaginaitor.vercel.app/',
     description: 'Conversor y optimizador de formatos de imágenes rápido.',
-    category: 'media',
+    category: 'multimedia',
     icon: ImageIcon,
   },
   {
@@ -248,7 +243,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://prukal2.infinityfreeapp.com/',
     description:
       'Loguea tu dirección IP, junto con un comentario y datos del S.O. visitante.',
-    category: 'connectivity',
+    category: 'tool',
     icon: Airplay,
   },
   {
@@ -280,7 +275,7 @@ export const LINKS: LinkItem[] = [
     title: 'Pdf a Excel',
     url: 'https://pdfaexcel.vercel.app/',
     description: 'Convierte tablas de documentos Pdf a Excel.',
-    category: 'utility',
+    category: 'office',
     icon: FileText,
   },
   {
@@ -288,7 +283,7 @@ export const LINKS: LinkItem[] = [
     title: 'Eventos del Sistema Operativo',
     url: 'https://syseventanalyzer.infinityfreeapp.com/',
     description: 'Obtén informes de tiempo de uso a través de los eventos del sistema.',
-    category: 'connectivity',
+    category: 'tool',
     icon: MonitorCog,
   },
   {
@@ -312,7 +307,7 @@ export const LINKS: LinkItem[] = [
     title: 'Emoji picker',
     url: 'https://kalboemojipicker.netlify.app/',
     description: 'Explora, visualiza, copia diferentes emojis.',
-    category: 'emoji',
+    category: 'tool',
     icon: SmilePlus,
   },
   {
@@ -344,7 +339,7 @@ export const LINKS: LinkItem[] = [
     title: 'QR Generaitor',
     url: 'https://qrgeneraitor.netlify.app/',
     description: 'Genera códigos QR.',
-    category: 'connectivity',
+    category: 'tool',
     icon: QrCode,
   },
   {
@@ -360,7 +355,7 @@ export const LINKS: LinkItem[] = [
     title: 'Metadata Remover',
     url: 'https://mdremover.netlify.app/',
     description: 'Elimina metadatos y EXIF de archivos.',
-    category: 'files',
+    category: 'tool',
     icon: Eraser,
   },
   {
@@ -368,7 +363,7 @@ export const LINKS: LinkItem[] = [
     title: 'Metadata Editaitor',
     url: 'https://metadataeditaitor.vercel.app/',
     description: 'Edición de metadatos y EXIF de imágenes.',
-    category: 'photography',
+    category: 'tool',
     icon: Images,
   },
   {
@@ -384,7 +379,7 @@ export const LINKS: LinkItem[] = [
     title: 'CSS Parser',
     url: 'https://css-visualizaitor.vercel.app/',
     description: 'Muestra estilos CSS y crea HTML con esos estilos.',
-    category: 'development',
+    category: 'tool',
     icon: SquareCode,
   },
   {
@@ -401,7 +396,7 @@ export const LINKS: LinkItem[] = [
     title: 'RenombrAitor',
     url: 'https://renombraitor.vercel.app/',
     description: 'Herramienta para el renombrado masivo de archivos.',
-    category: 'files',
+    category: 'tool',
     icon: FolderPen,
   },
   {
@@ -425,7 +420,7 @@ export const LINKS: LinkItem[] = [
     title: 'mi_IPFS_Drive',
     url: 'https://mi-ipfs-drive.vercel.app/',
     description: 'Almacenamiento distribuido IPFS para tus archivos.',
-    category: 'files',
+    category: 'tool',
     icon: HardDriveUpload,
   },
   {
@@ -441,7 +436,7 @@ export const LINKS: LinkItem[] = [
     title: 'BolAitor 3D Globe',
     url: 'https://bolaitor-3d-globe.pages.dev/',
     description: 'Galería de fotos en un globo 3D interactivo',
-    category: 'media',
+    category: 'multimedia',
     icon: ImageIcon,
   },
   {
@@ -481,7 +476,7 @@ export const LINKS: LinkItem[] = [
     title: 'Quita Fondos de imagen',
     url: 'https://quitafondos.kbo1.workers.dev/',
     description: 'Elimina el fondo de tus imágenes y fotos automáticamente',
-    category: 'media',
+    category: 'multimedia',
     icon: ImageIcon,
   },
   {
@@ -489,7 +484,7 @@ export const LINKS: LinkItem[] = [
     title: "Crea URL",
     url: 'https://crea-url.kbo1.workers.dev/',
     description: 'Pega un HTML y obtén al instante una URL pública',
-    category: 'development',
+    category: 'tool',
     icon: SquareCode,
   },
   {
@@ -521,7 +516,7 @@ export const LINKS: LinkItem[] = [
     title: "Compara Access Database",
     url: 'https://compara-access.vercel.app/',
     description: 'Compara Bases de Datos de MS Access',
-    category: 'tool',
+    category: 'office',
     icon: DatabaseCheck,
   },
   {
@@ -554,7 +549,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://mp3tageditor-7zg.pages.dev/',
     description:
       'Editor de etiquetas ID3 de archivos MP3. Edita metadatos y carátulas por lotes.',
-    category: 'media',
+    category: 'multimedia',
     icon: SixteenthNotes,
   },
   {
@@ -563,7 +558,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://aitor-audio-studio.pages.dev/',
     description:
       'Editor de audio online multipista',
-    category: 'media',
+    category: 'multimedia',
     icon: SixteenthNotes,
   },
   {
@@ -572,7 +567,7 @@ export const LINKS: LinkItem[] = [
     url: 'https://audio-converter-car.pages.dev/',
     description:
       'Convierte online MP3, WAV, FLAC, M4A y más.',
-    category: 'media',
+    category: 'multimedia',
     icon: SixteenthNotes,
   },
   {

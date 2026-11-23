@@ -6,15 +6,11 @@ export const LINK_CATEGORIES = [
   'tool',
   'utility',
   'media',
-  'navigation',
-  'connectivity',
+  'navigation',  
   'multimedia',
-  'emoji',
-  'files',
-  'game',
-  'development',
+  'game',  
   'security',
-  'photography',
+  'office',  
 ] as const;
 
 export type LinkCategory = (typeof LINK_CATEGORIES)[number];
