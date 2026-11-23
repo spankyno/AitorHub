@@ -577,6 +577,23 @@ export const LINKS: LinkItem[] = [
     description: 'Cálculo de la distancia recorrida en un tiempo determinado sobre un mapa',
     category: 'navigation',
     icon: MapPin,
+  },
+  {
+    id: 'homedesign3d',
+    title: 'Home Design 3D',
+    url: 'https://home-design-3d.kbo1.workers.dev/',
+    description: 'Dibuja y diseña croquis en 2D y 3D con muebles y medidas reales',
+    category: 'utility',
+    icon: PencilRuler,
+  },
+{
+    id: 'diferencia',
+    title: 'DiferenciAitor',
+    url: 'https://diferenciaitor.vercel.app/',
+    description:
+      'Compara textos, archivos y carpetas para detectar diferencias',
+    category: 'tool',
+    icon: FileText,
   }
 ];
 /** Categorías con al menos una herramienta, de más a menos herramientas: es el orden de los chips. */
