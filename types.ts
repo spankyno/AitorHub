@@ -4,8 +4,7 @@ import type { LucideIcon } from 'lucide-react';
 export const LINK_CATEGORIES = [
   'blog',
   'tool',
-  'utility',
-  'media',
+  'utility',  
   'navigation',  
   'multimedia',
   'game',  
